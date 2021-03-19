@@ -1,0 +1,15 @@
+.root-login {
+  background-color: rgb(40, 40, 40);
+  height: 100vh;
+}
+
+.card-login {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0;
+}
+
+.card-login > div {
+  margin: 10px 0;
+}
