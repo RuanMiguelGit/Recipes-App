@@ -4,6 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import InputText from '../components/InputText';
 import './Login.css';
+import { InitializeLocalStorageTokens } from '../services/localStorage';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -29,6 +30,11 @@ const Login = () => {
       setDisableSubmit(true);
     }
   }, [password, email]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    InitializeLocalStorageTokens();
+  };
 
   return (
     <Grid
@@ -58,6 +64,7 @@ const Login = () => {
             variant="contained"
             data-testid="login-submit-btn"
             disabled={ disableSubmit }
+            onClick={ handleSubmit }
           >
             Login
           </Button>
