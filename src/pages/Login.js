@@ -8,6 +8,7 @@ import './Login.css';
 import {
   initializeLocalStorageTokens,
   saveUserEmailInLocalStorage } from '../services/localStorage';
+import logo from '../images/logo.svg';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -53,6 +54,7 @@ const Login = () => {
       >
         <Grid item xs={ 10 }>
           <Card component="form" className="card-login">
+            <img src={ logo } alt="Logo" />
             <InputText
               label="Email"
               name="email-input"
