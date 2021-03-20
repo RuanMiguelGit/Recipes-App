@@ -1,4 +1,4 @@
-export const InitializeLocalStorageTokens = () => {
+export const initializeLocalStorageTokens = () => {
   // Here is already created and commented the logic to check if those localStorage keys already exist
   // const storageMealsToken = localStorage.getItem('mealsToken');
   // const storageCocktailsToken = localStorage.getItem('cocktailsToken');
@@ -8,6 +8,7 @@ export const InitializeLocalStorageTokens = () => {
   // }
 };
 
-export const createUserInLocalStorage = () => {
-
+export const saveUserEmailInLocalStorage = (email) => {
+  const localStorageUser = JSON.stringify({ email });
+  localStorage.setItem('user', localStorageUser);
 };

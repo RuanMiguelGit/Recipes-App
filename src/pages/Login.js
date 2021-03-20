@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import InputText from '../components/InputText';
 import './Login.css';
-import { InitializeLocalStorageTokens } from '../services/localStorage';
+import { initializeLocalStorageTokens, saveUserEmailInLocalStorage } from '../services/localStorage';
 
 const Login = () => {
   const [email, setEmail] = useState('');
@@ -33,7 +33,8 @@ const Login = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    InitializeLocalStorageTokens();
+    initializeLocalStorageTokens();
+    saveUserEmailInLocalStorage(email);
   };
 
   return (
