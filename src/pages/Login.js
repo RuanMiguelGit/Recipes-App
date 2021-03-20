@@ -2,14 +2,18 @@ import React, { useEffect, useState } from 'react';
 import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
+import { Redirect } from 'react-router';
 import InputText from '../components/InputText';
 import './Login.css';
-import { initializeLocalStorageTokens, saveUserEmailInLocalStorage } from '../services/localStorage';
+import {
+  initializeLocalStorageTokens,
+  saveUserEmailInLocalStorage } from '../services/localStorage';
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disableSubmit, setDisableSubmit] = useState(true);
+  const [redirect, setRedirect] = useState(false);
 
   // Following RegEx found at: https://stackoverflow.com/questions/46155/how-to-validate-an-email-address-in-javascript
   // I had to split the RegEx to fix the linter issues. I've found how to solve it here:
@@ -35,43 +39,47 @@ const Login = () => {
     e.preventDefault();
     initializeLocalStorageTokens();
     saveUserEmailInLocalStorage(email);
+    setRedirect(true);
   };
 
   return (
-    <Grid
-      container
-      justify="center"
-      alignItems="center"
-      className="root-login"
-    >
-      <Grid item xs={ 10 }>
-        <Card component="form" className="card-login">
-          <InputText
-            label="Email"
-            name="email-input"
-            type="email"
-            value={ email }
-            updateState={ setEmail }
-          />
-          <InputText
-            label="Password"
-            name="password-input"
-            type="password"
-            value={ password }
-            updateState={ setPassword }
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            data-testid="login-submit-btn"
-            disabled={ disableSubmit }
-            onClick={ handleSubmit }
-          >
-            Login
-          </Button>
-        </Card>
+    <>
+      { redirect && <Redirect to="/comidas" /> }
+      <Grid
+        container
+        justify="center"
+        alignItems="center"
+        className="root-login"
+      >
+        <Grid item xs={ 10 }>
+          <Card component="form" className="card-login">
+            <InputText
+              label="Email"
+              name="email-input"
+              type="email"
+              value={ email }
+              updateState={ setEmail }
+            />
+            <InputText
+              label="Password"
+              name="password-input"
+              type="password"
+              value={ password }
+              updateState={ setPassword }
+            />
+            <Button
+              type="submit"
+              variant="contained"
+              data-testid="login-submit-btn"
+              disabled={ disableSubmit }
+              onClick={ handleSubmit }
+            >
+              Login
+            </Button>
+          </Card>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   );
 };
 
