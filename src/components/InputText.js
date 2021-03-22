@@ -2,9 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TextField from '@material-ui/core/TextField';
 
-const InputText = ({ name, label, updateState, value, type }) => (
+const InputText = ({
+  name, label, updateState, value, variant, size, fullWidth, type,
+}) => (
   <TextField
-    variant="outlined"
+    fullWidth={ fullWidth }
+    variant={ variant }
+    size={ size }
     id={ name }
     label={ label }
     type={ type }
@@ -20,6 +24,9 @@ InputText.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   updateState: PropTypes.func.isRequired,
+  variant: PropTypes.string.isRequired,
+  size: PropTypes.string.isRequired,
+  fullWidth: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
 };
 
