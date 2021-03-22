@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Searchbar from '../components/Searchbar';
 
@@ -10,6 +11,9 @@ const Origin = () => (
       Show
     />
     <Searchbar />
+    <Footer
+      foodClass="explorer-foods-origin-footer"
+    />
   </div>
 );
 

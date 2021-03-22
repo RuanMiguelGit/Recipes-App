@@ -1,4 +1,5 @@
 import React from 'react';
+import Footer from '../components/Footer';
 import Header from '../components/Header';
 
 const ExploreDriksByIngredients = () => (
@@ -7,6 +8,9 @@ const ExploreDriksByIngredients = () => (
       name="Explorar Ingredientes"
       foodClass="explorer-drinks-ingredients"
       Show={ false }
+    />
+    <Footer
+      foodClass="explorer-drinks-ingredients-footer"
     />
   </div>
 );
