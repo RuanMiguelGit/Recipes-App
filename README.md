@@ -932,7 +932,6 @@ A barra de busca deve ficar logo abaixo do header e deve possuir 3 _radio button
   * Cada card deve conter o `data-testid="${index}-recipe-card"`.
   * Cada imagem deve conter o `data-testid="${index}-card-img"`.
   * Cada tag com o nome da receita deve ter o `data-testid="${index}-card-name"`.
-  * Caso mais de uma comida seja encontrada, mostrar as 12 primeiras (ou menos, se não hoverem 12).
   * Caso mais de uma bebida seja encontrada, mostrar as 12 primeiras (ou menos, se não hoverem 12).
 
 
