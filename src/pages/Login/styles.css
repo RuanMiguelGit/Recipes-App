@@ -7,9 +7,15 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  padding: 20px 0;
+  margin: 0 auto;
+  max-width: 350px;
+  padding: 0 0 20px;
 }
 
 .card-login > div {
   margin: 10px 0;
+}
+
+.card-login > button {
+  margin-top: 10px;
 }
