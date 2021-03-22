@@ -19,12 +19,14 @@ const Login = () => {
       <Grid item xs={ 10 }>
         <Card component="form" className="card-login">
           <InputText
+            variant="outlined"
             label="Email"
             name="email-input"
             value={ email }
             updateState={ setEmail }
           />
           <InputText
+            variant="outlined"
             label="Password"
             name="password-input"
             type="password"

@@ -1,0 +1,10 @@
+.search-bar{
+    width: 100%;
+        justify-content: center;
+        display: flex;
+        flex-direction: row;
+}
+
+.hidden{
+    display: none;
+}
