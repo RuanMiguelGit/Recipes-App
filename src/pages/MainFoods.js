@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import Loading from '../components/animation/Loading';
 import RecipeCardsContainer from '../components/Cards/RecipeCardsContainer';
@@ -5,20 +6,17 @@ import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Searchbar from '../components/Searchbar';
 import { Context } from '../context';
+import getApiData from '../services/apiRequest';
 
 const MainFoods = () => {
-  const { hide, mainRecipes } = useContext(Context);
+  const { apiData, hideSearchBar } = useContext(Context);
   const [loading, setLoading] = useState(true);
-
   useEffect(() => {
-    const fetchRecipes = async () => {
-      const { meals } = await (await fetch('https://www.themealdb.com/api/json/v1/1/search.php?s=')).json();
-      mainRecipes.set(meals);
-      console.log(meals);
+    hideSearchBar.set(true);
+    getApiData('food', 'search.php?s=').then((data) => {
+      apiData.set(data);
       setLoading(false);
-    };
-    fetchRecipes();
-    // eslint-disable-next-line
+    });
   }, []);
 
   return (
@@ -29,12 +27,13 @@ const MainFoods = () => {
         foodClass="main-food"
         Show
       />
-      { hide ? null : <Searchbar />}
-      { loading ? <Loading /> : <RecipeCardsContainer
-        cardsInfos={ mainRecipes.value }
+      { !hideSearchBar.value && <Searchbar />}
+      { loading ? <Loading /> : (<RecipeCardsContainer
+        cardsInfos={ apiData.value }
         cardType="food"
         maxCards={ 12 }
-      />}
+      />
+      )}
       <Footer
         foodClass="main-food-footer"
       />

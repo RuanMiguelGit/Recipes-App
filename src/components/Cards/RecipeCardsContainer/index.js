@@ -2,6 +2,7 @@ import { Grid } from '@material-ui/core';
 import React from 'react';
 import PropTypes from 'prop-types';
 import RecipeCard from '../RecipeCard';
+import './styles.css';
 
 const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
   const cardTypes = {
@@ -21,13 +22,13 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
       : cardsInfos.slice(0, maxCards));
 
   const { image, name } = cardTypes[cardType];
-  console.log(cardsInfos);
 
   return (
     <Grid
       container
       justify="center"
       alignItems="center"
+      className="recipe-cards-container"
     >
 
       {cardsToRender.map((card, index) => (
@@ -45,9 +46,13 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
 };
 
 RecipeCardsContainer.propTypes = {
-  cardsInfos: PropTypes.arrayOf.isRequired,
+  cardsInfos: PropTypes.arrayOf(PropTypes.object),
   cardType: PropTypes.string.isRequired,
   maxCards: PropTypes.number.isRequired,
+};
+
+RecipeCardsContainer.defaultProps = {
+  cardsInfos: [],
 };
 
 export default RecipeCardsContainer;

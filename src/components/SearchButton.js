@@ -4,12 +4,12 @@ import searchicon from '../images/searchIcon.svg';
 import { Context } from '../context';
 
 const SearchButton = () => {
-  const { hideBar } = useContext(Context);
+  const { hideSearchBar: { value, set } } = useContext(Context);
 
   return (
     <Button
       src={ searchicon }
-      onClick={ () => hideBar() }
+      onClick={ () => set(!value) }
       type="button"
       data-testid="search-top-btn"
     >
