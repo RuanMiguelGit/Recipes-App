@@ -179,28 +179,3 @@
   position: 'fixed';
   width: '100%';
 }
-
-.search-bar .search-btn {
-  color: rgb(240, 240, 240);
-  margin-bottom: 20px;
-}
-
-.search-bar .food-search {
-  background-color: rgb(224, 41, 41);
-}
-
-.search-bar .drink-search {
-  background-color: rgb(12, 88, 150);
-}
-
-.search-bar .radio-search-drink > span > div {
-  color: rgb(12, 88, 150);
-}
-
-.search-bar .radio-search-drink:checked > span > div {
-  color: rgb(12, 88, 150);
-}
-
-.search-bar .search-radio-group {
-  padding: 5px 10px;
-}

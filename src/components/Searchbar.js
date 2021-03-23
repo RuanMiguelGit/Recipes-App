@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from 'react-router-dom';
@@ -20,6 +21,7 @@ const Searchbar = ({ type }) => {
   const searchBtnClass = type === 'food' ? 'search-btn food-search'
     : 'search-btn drink-search';
   const radioClass = type === 'food' ? '' : 'radio-search-drink';
+  const radioColor = type === 'food' ? 'secondary' : 'primary';
 
   const radioChange = (evt) => {
     setRadioValue(evt.target.value);
@@ -46,7 +48,7 @@ const Searchbar = ({ type }) => {
 
   return (
     <Paper elevation={ 10 } variant="elevation">
-      <Grid container component="form" className="search-bar">
+      <Grid container component="form" className="search-bar" direction="column">
         <InputText
           fullWidth
           id="Search"
@@ -68,18 +70,21 @@ const Searchbar = ({ type }) => {
             name="ingredient-search-radio"
             value="filter.php?i="
             label="Ingrediente"
+            color={ radioColor }
             classes={ radioClass }
           />
           <InputRadio
             name="name-search-radio"
             value="search.php?s="
             label="Nome"
+            color={ radioColor }
             classes={ radioClass }
           />
           <InputRadio
             name="first-letter-search-radio"
             value="search.php?f="
             label="Primeira letra"
+            color={ radioColor }
             classes={ radioClass }
           />
         </RadioGroup>

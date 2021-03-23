@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 import { useEffect } from 'react';
 
 const useVerifyNoOrSingleDish = (data, dishType, history) => {
