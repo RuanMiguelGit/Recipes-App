@@ -7,6 +7,7 @@ export const Context = createContext();
 const ContextProvider = ({ children }) => {
   const [hide, setHide] = useState(true);
   const [searched, setSearched] = useState('');
+  const [mainRecipes, setMainRecipes] = useState();
 
   function hideBar() {
     setHide(!hide);
@@ -18,6 +19,7 @@ const ContextProvider = ({ children }) => {
     hideBar,
     searched,
     setSearched,
+    mainRecipes: { value: mainRecipes, set: (recArray) => setMainRecipes(recArray) },
   };
   return (
     <Context.Provider value={ obj }>
