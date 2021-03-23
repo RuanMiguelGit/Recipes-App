@@ -24,10 +24,17 @@ InputText.propTypes = {
   label: PropTypes.string.isRequired,
   value: PropTypes.string.isRequired,
   updateState: PropTypes.func.isRequired,
-  variant: PropTypes.string.isRequired,
-  size: PropTypes.string.isRequired,
-  fullWidth: PropTypes.string.isRequired,
-  type: PropTypes.string.isRequired,
+  variant: PropTypes.string,
+  size: PropTypes.string,
+  fullWidth: PropTypes.bool,
+  type: PropTypes.string,
+};
+
+InputText.defaultProps = {
+  variant: 'standard',
+  size: 'medium',
+  fullWidth: false,
+  type: 'text',
 };
 
 export default InputText;

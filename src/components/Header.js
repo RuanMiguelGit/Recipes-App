@@ -27,7 +27,7 @@ const Header = ({ name, foodClass, Show }) => (
 Header.propTypes = {
   name: PropTypes.string.isRequired,
   foodClass: PropTypes.string.isRequired,
-  Show: PropTypes.string.isRequired,
+  Show: PropTypes.bool.isRequired,
 };
 
 export default Header;

@@ -1,11 +1,16 @@
-import React, { useContext } from 'react';
+/* eslint-disable react-hooks/exhaustive-deps */
+import React, { useContext, useEffect } from 'react';
 import { Context } from '../context';
 import Header from '../components/Header';
 import Searchbar from '../components/Searchbar';
 import Footer from '../components/Footer';
 
 const MainDrinks = () => {
-  const { hide } = useContext(Context);
+  const { hideSearchBar } = useContext(Context);
+
+  useEffect(() => {
+    hideSearchBar.set(true);
+  }, []);
 
   return (
     <div>
@@ -14,9 +19,7 @@ const MainDrinks = () => {
         foodClass="main-drinks"
         Show
       />
-      { hide ? null
-        : <Searchbar />}
-
+      { !hideSearchBar.value && <Searchbar type="drink" />}
       <Footer
         foodClass="main-drinks-footer"
       />
