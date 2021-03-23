@@ -16,10 +16,11 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
     },
   };
 
-  const cardsToRender = (
-    cardsInfos.length <= maxCards - 1
-      ? cardsInfos
-      : cardsInfos.slice(0, maxCards));
+  const cardsToRender = () => {
+    if (!cardsInfos) return [];
+    if (cardsInfos.length > maxCards) return cardsInfos.slice(0, maxCards);
+    return cardsInfos;
+  };
 
   const { image, name } = cardTypes[cardType];
 
@@ -30,8 +31,7 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
       alignItems="center"
       className="recipe-cards-container"
     >
-
-      {cardsToRender.map((card, index) => (
+      {cardsToRender().map((card, index) => (
 
         <RecipeCard
           key={ index }
@@ -40,7 +40,6 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
           index={ index }
         />
       ))}
-
     </Grid>
   );
 };
