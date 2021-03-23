@@ -1,11 +1,15 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Searchbar from '../components/Searchbar';
 import { Context } from '../context';
 
 const MainFoods = () => {
-  const { hide } = useContext(Context);
+  const { hideSearchBar } = useContext(Context);
+
+  useEffect(() => {
+    hideSearchBar.set(true);
+  }, []);
 
   return (
     <div>
@@ -14,8 +18,7 @@ const MainFoods = () => {
         foodClass="main-food"
         Show
       />
-      { hide ? null
-        : <Searchbar />}
+      { !hideSearchBar.value && <Searchbar />}
       <Footer
         foodClass="main-food-footer"
       />

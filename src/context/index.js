@@ -5,19 +5,12 @@ import PropTypes from 'prop-types';
 export const Context = createContext();
 
 const ContextProvider = ({ children }) => {
-  const [hide, setHide] = useState(true);
-  const [searched, setSearched] = useState('');
-
-  function hideBar() {
-    setHide(!hide);
-    console.log('chamou');
-  }
+  const [hideSearchBar, setHideSearchBar] = useState(true);
+  const [apiData, setApiData] = useState({});
 
   const obj = {
-    hide,
-    hideBar,
-    searched,
-    setSearched,
+    hideSearchBar: { value: hideSearchBar, set: setHideSearchBar },
+    apiData: { value: apiData, set: setApiData },
   };
   return (
     <Context.Provider value={ obj }>
