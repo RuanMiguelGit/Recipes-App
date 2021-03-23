@@ -3,14 +3,14 @@ import { useEffect } from 'react';
 
 const useVerifyNoOrSingleDish = (data, dishType, history) => {
   useEffect(() => {
-    if (data[dishType] && data[dishType].length === 1) {
+    if (data && data.length === 1) {
       const dishPath = dishType === 'meals' ? 'comidas' : 'bebidas';
-      const id = dishType === 'meals' ? data.meals[0].idMeal
-        : data.drinks[0].idDrink;
+      const id = dishType === 'meals' ? data[0].idMeal
+        : data[0].idDrink;
 
       history.push(`/${dishPath}/${id}`);
     }
-    if (data[dishType] === null) {
+    if (data === null) {
       alert('Sinto muito, não encontramos nenhuma receita para esses filtros.');
     }
   }, [data, history, dishType]);
