@@ -1,0 +1,19 @@
+.gridContainer {
+  place-items: center;
+}
+
+.contentContainer {
+  height: 640px;
+  overflow-y: scroll;
+  width: 360px;
+}
+
+.mediaImg {
+  height: 100px;
+  width: 100px;
+}
+
+.mediaVideo {
+  height: auto;
+  max-width: 560px;
+}

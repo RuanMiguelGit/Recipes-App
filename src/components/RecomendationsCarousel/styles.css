@@ -1,0 +1,19 @@
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.slide {
+  display: inline;
+  width: 10px;
+}
+
+.active {
+  width: 50px;
+}
+
+.flow-btns {
+  height: 30px;
+}
