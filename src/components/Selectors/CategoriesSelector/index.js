@@ -7,7 +7,7 @@ import getApiData from '../../../services/apiRequest';
 import './styles.css';
 
 const CategoriesSelector = ({ recipeType }) => {
-  const { apiCategories, filteredRecipes } = useContext(Context);
+  const { apiCategories, filteredRecipes, apiData } = useContext(Context);
   const [currentFilter, setCurrentFilter] = useState('');
   useEffect(() => {
     getApiData(recipeType, 'list.php?c=list').then((data) => {
@@ -16,12 +16,16 @@ const CategoriesSelector = ({ recipeType }) => {
   }, []);
 
   const handleClick = (e) => {
-    if (e.target.textContent === currentFilter) {
+    if (e.target.textContent === currentFilter || e.target.textContent === 'All') {
       setCurrentFilter('');
+      getApiData(recipeType, 'search.php?s=').then((data) => {
+        apiData.set(data);
+      });
       filteredRecipes.set([]);
     } else {
       setCurrentFilter(e.target.textContent);
-      filteredRecipes.set(e.target.textContent);
+      getApiData(recipeType, `filter.php?c=${e.target.textContent}`)
+        .then((data) => apiData.set(data));
     }
   };
 
@@ -34,10 +38,10 @@ const CategoriesSelector = ({ recipeType }) => {
           variant="contained"
           fullWidth
           value="All"
-          onClick={ () => handleClick }
+          onClick={ handleClick }
+          data-testid="All-category-filter"
         >
           All
-
         </Button>
       </Grid>
       {apiCategories.value.slice(0, CATEGORIES_AMOUNT).map(({ strCategory }) => (
