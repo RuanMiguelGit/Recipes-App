@@ -30,4 +30,8 @@ const ContextProvider = ({ children }) => {
   );
 };
 
+ContextProvider.propTypes = {
+  children: PropTypes.element.isRequired,
+};
+
 export default ContextProvider;
