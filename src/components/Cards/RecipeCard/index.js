@@ -13,6 +13,7 @@ const RecipeCard = ({ title, thumbnail, index }) => (
           data-testid={ `${index}-card-img` }
           component="img"
           image={ thumbnail }
+          src={ thumbnail }
           title={ title }
         />
       </CardActionArea>
