@@ -4,16 +4,16 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
-// import { Redirect } from 'react-router';
-import { Link } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 
-const RecipeCard = ({ title, thumbnail, index, clickRedirectPath }) => (
-  <Grid item xs={ 6 }>
-    {/* {redirect && <Redirect to={ clickRedirectPath } />} */}
-    <Link to={ clickRedirectPath }>
+const RecipeCard = ({ title, thumbnail, index, clickRedirectPath }) => {
+  const history = useHistory();
+  return (
+    <Grid item xs={ 6 }>
       <Card
         data-testid={ `${index}-recipe-card` }
         className="recipe-card"
+        onClick={ () => history.push(clickRedirectPath) }
       >
         <CardActionArea>
           <CardMedia
@@ -35,12 +35,13 @@ const RecipeCard = ({ title, thumbnail, index, clickRedirectPath }) => (
           </Typography>
         </CardContent>
       </Card>
-    </Link>
-  </Grid>
-);
+    </Grid>
+  );
+};
 RecipeCard.propTypes = {
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
+  clickRedirectPath: PropTypes.string.isRequired,
 };
 export default RecipeCard;

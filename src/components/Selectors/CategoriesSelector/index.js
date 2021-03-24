@@ -3,28 +3,30 @@ import { Button, Grid } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../../../context';
-import getApiData from '../../../services/apiRequest';
+import getApiData,
+{ EpAllRecipes, EpCategories, EpRecipesByCategory } from '../../../services/apiRequest';
 import './styles.css';
 
 const CategoriesSelector = ({ recipeType }) => {
   const { apiCategories, filteredRecipes, apiData } = useContext(Context);
   const [currentFilter, setCurrentFilter] = useState('');
   useEffect(() => {
-    getApiData(recipeType, 'list.php?c=list').then((data) => {
+    getApiData(recipeType, EpCategories).then((data) => {
       apiCategories.set(data);
+      return () => { apiCategories.set([]); };
     });
   }, []);
 
   const handleClick = (e) => {
     if (e.target.textContent === currentFilter || e.target.textContent === 'All') {
       setCurrentFilter('');
-      getApiData(recipeType, 'search.php?s=').then((data) => {
+      getApiData(recipeType, EpAllRecipes).then((data) => {
         apiData.set(data);
       });
       filteredRecipes.set([]);
     } else {
       setCurrentFilter(e.target.textContent);
-      getApiData(recipeType, `filter.php?c=${e.target.textContent}`)
+      getApiData(recipeType, EpRecipesByCategory, e.target.textContent)
         .then((data) => apiData.set(data));
     }
   };
@@ -40,25 +42,31 @@ const CategoriesSelector = ({ recipeType }) => {
           value="All"
           onClick={ handleClick }
           data-testid="All-category-filter"
+          size="small"
+          className={ recipeType === 'drink' && 'drink-button' }
         >
           All
         </Button>
       </Grid>
-      {apiCategories.value.slice(0, CATEGORIES_AMOUNT).map(({ strCategory }) => (
-        <Grid item key={ strCategory } xs={ 4 }>
-          <Button
-            variant="contained"
-            fullWidth
-            key={ strCategory }
-            value={ strCategory }
-            onClick={ handleClick }
-            data-testid={ `${strCategory}-category-filter` }
-          >
-            {strCategory}
+      {apiCategories.value && apiCategories.value.slice(0, CATEGORIES_AMOUNT)
+        .map(({ strCategory }) => (
+          <Grid item key={ strCategory } xs={ 4 }>
+            <Button
+              variant="contained"
+              fullWidth
+              key={ strCategory }
+              value={ strCategory }
+              onClick={ handleClick }
+              data-testid={ `${strCategory}-category-filter` }
+              size="small"
+              className={ recipeType === 'drink' && 'drink-button' }
+            >
 
-          </Button>
-        </Grid>
-      ))}
+              {strCategory}
+
+            </Button>
+          </Grid>
+        ))}
     </Grid>
 
   );

@@ -5,3 +5,12 @@
 .MuiButton-root {
   margin: 5px;
 }
+
+.MuiGrid-spacing-xs-1.MuiGrid-container {
+  margin: 0;
+  width: 100%;
+}
+
+.drink-button {
+  height: 50px;
+}
