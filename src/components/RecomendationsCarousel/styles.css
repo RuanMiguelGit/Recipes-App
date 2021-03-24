@@ -2,16 +2,15 @@
   align-items: center;
   display: flex;
   flex-direction: row;
+  overflow-x: auto;
+  padding-top: 10px;
 }
 
 
 .slide {
+  color: red;
   display: inline;
-  width: 10px;
-}
-
-.active {
-  width: 50px;
+  margin: 30px;
 }
 
 .flow-btns {

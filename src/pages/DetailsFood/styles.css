@@ -4,7 +4,7 @@
 
 .contentContainer {
   height: 640px;
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
   width: 360px;
 }
 

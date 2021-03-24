@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import {
@@ -91,7 +92,7 @@ const DetailsFood = () => {
       alignItems="center"
     >
       <Grid item className="gridContainer">
-        {receipeDetails
+        {(receipeDetails && recomendations)
           ? (
             <Card className="cardContainer">
               <CardContent className="contentContainer">
