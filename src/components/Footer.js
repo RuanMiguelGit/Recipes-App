@@ -13,7 +13,7 @@ const Footer = ({ foodClass }) => (
     position="fixed"
     color="primary"
     style={ { top: 'auto',
-    bottom: 0 } }
+      bottom: 0 } }
   >
     <Toolbar className={ foodClass }>
       <Link to="/bebidas">
