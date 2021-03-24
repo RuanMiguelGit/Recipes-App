@@ -4,33 +4,40 @@ import {
 import React from 'react';
 import PropTypes from 'prop-types';
 import './styles.css';
+// import { Redirect } from 'react-router';
+import { Link } from 'react-router-dom';
 
-const RecipeCard = ({ title, thumbnail, index }) => (
+const RecipeCard = ({ title, thumbnail, index, clickRedirectPath }) => (
   <Grid item xs={ 6 }>
-    <Card data-testid={ `${index}-recipe-card` } className="recipe-card">
-      <CardActionArea>
-        <CardMedia
-          data-testid={ `${index}-card-img` }
-          component="img"
-          image={ thumbnail }
-          src={ thumbnail }
-          title={ title }
-        />
-      </CardActionArea>
-      <CardContent>
-        <Typography
-          gutterBottom
-          variant="h5"
-          component="h2"
-          data-testid={ `${index}-card-name` }
-        >
-          {title}
-        </Typography>
-      </CardContent>
-    </Card>
+    {/* {redirect && <Redirect to={ clickRedirectPath } />} */}
+    <Link to={ clickRedirectPath }>
+      <Card
+        data-testid={ `${index}-recipe-card` }
+        className="recipe-card"
+      >
+        <CardActionArea>
+          <CardMedia
+            data-testid={ `${index}-card-img` }
+            component="img"
+            image={ thumbnail }
+            src={ thumbnail }
+            title={ title }
+          />
+        </CardActionArea>
+        <CardContent>
+          <Typography
+            gutterBottom
+            variant="h5"
+            component="h2"
+            data-testid={ `${index}-card-name` }
+          >
+            {title}
+          </Typography>
+        </CardContent>
+      </Card>
+    </Link>
   </Grid>
 );
-
 RecipeCard.propTypes = {
   title: PropTypes.string.isRequired,
   thumbnail: PropTypes.string.isRequired,
