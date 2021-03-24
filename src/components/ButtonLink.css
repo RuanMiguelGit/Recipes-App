@@ -1,0 +1,13 @@
+.Button-explorer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-top: 150px;
+}
+
+.SizeUp {
+  height: 100px;
+  text-align: center;
+  width: 300px;
+}
