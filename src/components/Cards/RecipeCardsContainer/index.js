@@ -9,10 +9,14 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
     food: {
       image: 'strMealThumb',
       name: 'strMeal',
+      redirectPath: '/comidas',
+      idName: 'idMeal',
     },
     drink: {
       image: 'strDrinkThumb',
       name: 'strDrink',
+      redirectPath: '/bebidas',
+      idName: 'idDrink',
     },
   };
 
@@ -22,7 +26,7 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
     return cardsInfos;
   };
 
-  const { image, name } = cardTypes[cardType];
+  const { image, name, redirectPath, idName } = cardTypes[cardType];
 
   return (
     <Grid
@@ -38,6 +42,7 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
           title={ card[name] }
           thumbnail={ card[image] }
           index={ index }
+          clickRedirectPath={ `${redirectPath}/${card[idName]}` }
         />
       ))}
     </Grid>
