@@ -21,6 +21,8 @@ import {
   checkDoneRecipes,
   checkProgressRecipes,
   checkFavoriteRecipes,
+  saveFavoriteRecipe,
+  removeFavoritedRecipe,
 } from '../../services/localStorage';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -125,7 +127,10 @@ const DetailsFood = () => {
                 {favorited
                   ? (
                     <Button
-                      onClick={ () => setFavorited(false) }
+                      onClick={ () => {
+                        setFavorited(false);
+                        removeFavoritedRecipe(id);
+                      } }
                     >
                       <img
                         src={ blackHeartIcon }
@@ -137,7 +142,10 @@ const DetailsFood = () => {
                   )
                   : (
                     <Button
-                      onClick={ () => setFavorited(true) }
+                      onClick={ () => {
+                        setFavorited(true);
+                        saveFavoriteRecipe(recipeDetails);
+                      } }
                     >
                       <img
                         src={ whiteHeartIcon }

@@ -20,6 +20,8 @@ import {
   checkDoneRecipes,
   checkProgressRecipes,
   checkFavoriteRecipes,
+  saveFavoriteRecipe,
+  removeFavoritedRecipe,
 } from '../../services/localStorage';
 import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
 import blackHeartIcon from '../../images/blackHeartIcon.svg';
@@ -32,13 +34,13 @@ const DetailsDrink = () => {
   const locationPath = location.pathname.replace(/\/(\w+)\/(.+)/, '$1');
   const history = useHistory();
 
-  const [receipeDetails, setReceipeDetails] = useState('');
+  const [recipeDetails, setRecipeDetails] = useState('');
   const [recomendations, setRecomendations] = useState([]);
   const [bottomButtonText, setBottomButtonText] = useState('Iniciar receita');
   const [favorited, setFavorited] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
-  const receipeDetailsURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const recipeDetailsURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const mealsURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const drinksURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
@@ -50,7 +52,7 @@ const DetailsDrink = () => {
   };
 
   useEffect(() => {
-    fetchData(receipeDetailsURL, (results) => setReceipeDetails(results.drinks[0]));
+    fetchData(recipeDetailsURL, (results) => setRecipeDetails(results.drinks[0]));
   }, []);
   useEffect(() => {
     switch (locationPath) {
@@ -82,8 +84,8 @@ const DetailsDrink = () => {
     for (let index = 1; index <= MAX_NUMBER_OF_INGREDIENTS; index += 1) {
       arrayOfIngredients.push(
         {
-          ingredient: receipeDetails[`strIngredient${index}`],
-          measure: receipeDetails[`strMeasure${index}`],
+          ingredient: recipeDetails[`strIngredient${index}`],
+          measure: recipeDetails[`strMeasure${index}`],
         },
       );
     }
@@ -99,25 +101,28 @@ const DetailsDrink = () => {
       alignItems="center"
     >
       <Grid item xs={ 12 }>
-        {receipeDetails
+        {recipeDetails
           ? (
             <Card>
               <CardContent>
                 <img
-                  src={ receipeDetails.strDrinkThumb }
-                  alt={ receipeDetails.idDrink }
+                  src={ recipeDetails.strDrinkThumb }
+                  alt={ recipeDetails.idDrink }
                   data-testid="recipe-photo"
                 />
                 <Typography data-testid="recipe-title">
-                  {receipeDetails.strDrink}
+                  {recipeDetails.strDrink}
                 </Typography>
                 <Typography data-testid="recipe-category">
-                  {receipeDetails.strAlcoholic}
+                  {recipeDetails.strAlcoholic}
                 </Typography>
                 {favorited
                   ? (
                     <Button
-                      onClick={ () => setFavorited(false) }
+                      onClick={ () => {
+                        setFavorited(false);
+                        removeFavoritedRecipe(id);
+                      } }
                     >
                       <img
                         src={ blackHeartIcon }
@@ -129,7 +134,10 @@ const DetailsDrink = () => {
                   )
                   : (
                     <Button
-                      onClick={ () => setFavorited(true) }
+                      onClick={ () => {
+                        setFavorited(true);
+                        saveFavoriteRecipe(recipeDetails);
+                      } }
                     >
                       <img
                         src={ whiteHeartIcon }
@@ -161,7 +169,7 @@ const DetailsDrink = () => {
                   ))}
                 </List>
                 <Typography data-testid="instructions">
-                  {receipeDetails.strInstructions}
+                  {recipeDetails.strInstructions}
                 </Typography>
                 { recomendations
                   ? <RecomendationsCarousel recomendations={ recomendations } />

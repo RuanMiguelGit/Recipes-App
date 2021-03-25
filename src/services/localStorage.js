@@ -45,11 +45,44 @@ export const checkDoneRecipes = (type, id) => {
 
 export const checkFavoriteRecipes = (type, id) => {
   const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
-  console.log(favoriteRecipes);
   const result = favoriteRecipes
     ? favoriteRecipes
       .filter((mixedRecipe) => mixedRecipe.type === type)
       .find((recipe) => recipe.id.toString() === id)
     : '';
   return result;
+};
+
+export const saveFavoriteRecipe = (recipe) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const newFavorite = recipe.idMeal
+    ? {
+      id: recipe.idMeal,
+      type: 'comida',
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+    }
+    : {
+      id: recipe.idDrink,
+      type: 'bebida',
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+    };
+  console.log(newFavorite);
+  if (favoriteRecipes) {
+    favoriteRecipes.push(newFavorite);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  } else localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
+};
+
+export const removeFavoritedRecipe = (id) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const result = favoriteRecipes.filter((recipe) => recipe.id.toString() !== id);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(result));
 };
