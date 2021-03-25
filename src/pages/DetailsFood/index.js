@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation, useHistory } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import {
   Grid,
   Card,
@@ -28,8 +28,6 @@ import './styles.css';
 const DetailsFood = () => {
   const NUMBER_OF_RECOMENDATIONS = 6;
   const { id } = useParams();
-  // const location = useLocation();
-  // const locationPath = location.pathname.replace(/\/(\w+)\/(.+)/, '$1');
   const history = useHistory();
 
   const [recipeDetails, setRecipeDetails] = useState('');
@@ -38,7 +36,6 @@ const DetailsFood = () => {
   const [copiedLink, setCopiedLink] = useState(false);
 
   const recipeDetailsURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-  //const mealsURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const drinksURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
   const fetchData = async (url, callback) => {
@@ -55,17 +52,6 @@ const DetailsFood = () => {
     fetchData(drinksURL, (results) => setRecomendations(
       results.drinks.slice(0, NUMBER_OF_RECOMENDATIONS),
     ));
-    // switch (locationPath) {
-    // case 'comidas':
-    //   break;
-    // case 'bebidas':
-    //   fetchData(mealsURL, (results) => setRecomendations(
-    //     results.meals.slice(0, NUMBER_OF_RECOMENDATIONS),
-    //   ));
-    //   break;
-    // default:
-    //   break;
-    // }
   }, []);
   useEffect(() => {
     if (checkDoneRecipes('food', id)) setBottomButtonText('');
