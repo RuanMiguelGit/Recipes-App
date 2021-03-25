@@ -38,7 +38,7 @@ function App() {
         <Route path="/explorar/bebidas" component={ ExplorerDrinks } />
         <Route path="/explorar" component={ Explorer } />
         <Route path="/comidas/:id/in-progress" component={ RecipeInProgressFoos } />
-        <Route path="/bebidas/:id/in-progess" component={ RecipeInProgressDrinks } />
+        <Route path="/bebidas/:id/in-progress" component={ RecipeInProgressDrinks } />
         <Route path="/comidas/:id" component={ DetailsFood } />
         <Route path="/bebidas/:id" component={ DetailsDrink } />
         <Route path="/comidas" component={ MainFoods } />

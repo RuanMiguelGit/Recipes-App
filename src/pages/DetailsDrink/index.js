@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import {
   Grid,
   Card,
@@ -27,6 +27,7 @@ const DetailsDrink = () => {
   const { id } = useParams();
   const location = useLocation();
   const locationPath = location.pathname.replace(/\/(\w+)\/(.+)/, '$1');
+  const history = useHistory();
 
   const [receipeDetails, setReceipeDetails] = useState('');
   const [recomendations, setRecomendations] = useState([]);
@@ -144,6 +145,7 @@ const DetailsDrink = () => {
                     >
                       <Button
                         variant="contained"
+                        onClick={ () => history.push(`/bebidas/${id}/in-progress`) }
                       >
                         {bottomButtonText}
                       </Button>

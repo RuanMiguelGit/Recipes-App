@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useEffect, useState } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import {
   Grid,
   Card,
@@ -28,6 +28,7 @@ const DetailsFood = () => {
   const { id } = useParams();
   const location = useLocation();
   const locationPath = location.pathname.replace(/\/(\w+)\/(.+)/, '$1');
+  const history = useHistory();
 
   const [recipeDetails, setRecipeDetails] = useState('');
   const [recomendations, setRecomendations] = useState([]);
@@ -156,6 +157,7 @@ const DetailsFood = () => {
                     >
                       <Button
                         variant="contained"
+                        onClick={ () => history.push(`/comidas/${id}/in-progress`) }
                       >
                         {bottomButtonText}
                       </Button>
