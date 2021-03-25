@@ -22,8 +22,6 @@ import {
   checkProgressRecipes,
 } from '../../services/localStorage';
 
-import './styles.css';
-
 const DetailsDrink = () => {
   const NUMBER_OF_RECOMENDATIONS = 6;
   const { id } = useParams();
@@ -88,6 +86,7 @@ const DetailsDrink = () => {
                   src={ recipeDetails.strDrinkThumb }
                   alt={ recipeDetails.idDrink }
                   data-testid="recipe-photo"
+                  className="recipe-photo"
                 />
                 <Typography data-testid="recipe-title">
                   {recipeDetails.strDrink}

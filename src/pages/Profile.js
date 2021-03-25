@@ -1,18 +1,13 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { Grid } from '@material-ui/core';
 import SmallHolder from '../components/SmallHolder';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import ButtonLink from '../components/ButtonLink';
+import { getUserEmail } from '../services/localStorage';
 
 const Profile = () => {
-  const [LocalStore, setStore] = useState('');
-  useEffect(() => {
-    if (!localStorage.getItem('user') !== undefined
-  && localStorage.getItem('user') !== null) {
-      setStore(Object.values(JSON.parse(localStorage.getItem('user'))));
-    }
-  }, []);
+  const user = getUserEmail();
 
   return (
     <div>
@@ -22,7 +17,7 @@ const Profile = () => {
         Show={ false }
       />
       <SmallHolder
-        name={ LocalStore }
+        name={ user }
         className="main"
       />
 

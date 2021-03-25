@@ -13,6 +13,17 @@ export const saveUserEmailInLocalStorage = (email) => {
   localStorage.setItem('user', localStorageUser);
 };
 
+export const getUserEmail = () => {
+  const { email } = JSON.parse(localStorage.user);
+  if (!email) return '';
+  return email;
+};
+
+export const getDoneRecipes = () => {
+  const doneRecipes = JSON.parse(localStorage.doneRecipes);
+  return doneRecipes;
+};
+
 export const checkProgressRecipes = (type, id) => {
   const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
   let result = '';
@@ -74,7 +85,6 @@ export const saveFavoriteRecipe = (recipe) => {
       name: recipe.strDrink,
       image: recipe.strDrinkThumb,
     };
-  console.log(newFavorite);
   if (favoriteRecipes) {
     favoriteRecipes.push(newFavorite);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
