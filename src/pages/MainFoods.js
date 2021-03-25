@@ -16,7 +16,6 @@ const MainFoods = () => {
     hideSearchBar.set(true);
     getApiData('food', 'search.php?s=').then((data) => {
       apiData.set(data);
-      console.log(data);
       setLoading(false);
     });
   }, []);

@@ -19,6 +19,7 @@ const RecomendationsCarousel = ({ recomendations }) => (
               ? receipe.strDrinkThumb
               : receipe.strMealThumb }
             alt={ receipe.strDrink ? receipe.strDrink : receipe.strMeal }
+            className="recipe-photo"
           />
           <h2
             data-testid={ `${index}-recomendation-title` }
