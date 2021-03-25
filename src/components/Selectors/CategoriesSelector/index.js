@@ -43,7 +43,7 @@ const CategoriesSelector = ({ recipeType }) => {
           onClick={ handleClick }
           data-testid="All-category-filter"
           size="small"
-          className={ recipeType === 'drink' && 'drink-button' }
+          className={ recipeType === 'drink' ? 'drink-button' : '' }
         >
           All
         </Button>
@@ -59,7 +59,7 @@ const CategoriesSelector = ({ recipeType }) => {
               onClick={ handleClick }
               data-testid={ `${strCategory}-category-filter` }
               size="small"
-              className={ recipeType === 'drink' && 'drink-button' }
+              className={ recipeType === 'drink' ? 'drink-button' : '' }
             >
 
               {strCategory}

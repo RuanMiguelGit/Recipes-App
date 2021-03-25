@@ -19,7 +19,6 @@ const ButtonLink = ({
         onClick={ func }
       >
         <Typography variant="button">{name}</Typography>
-        {/* {name} */}
       </Button>
     </Link>
   </Box>
@@ -34,8 +33,11 @@ ButtonLink.propTypes = {
   color: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   datatest: PropTypes.string.isRequired,
-  func: PropTypes.func.isRequired,
+  func: PropTypes.func,
+};
 
+ButtonLink.defaultProps = {
+  func: () => {},
 };
 
 export default ButtonLink;

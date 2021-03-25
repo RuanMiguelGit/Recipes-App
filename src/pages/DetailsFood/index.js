@@ -95,6 +95,7 @@ const DetailsFood = () => {
                   src={ recipeDetails.strMealThumb }
                   alt={ recipeDetails.idMeal }
                   data-testid="recipe-photo"
+                  className="recipe-photo"
                 />
                 <Typography data-testid="recipe-title">
                   {recipeDetails.strMeal}
