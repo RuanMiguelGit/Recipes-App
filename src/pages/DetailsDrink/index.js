@@ -16,33 +16,29 @@ import {
   Share as ShareIcon,
 } from '@material-ui/icons';
 import RecomendationsCarousel from '../../components/RecomendationsCarousel';
+import FavoriteButton from '../../components/FavoriteButton';
 import {
   checkDoneRecipes,
   checkProgressRecipes,
-  checkFavoriteRecipes,
-  saveFavoriteRecipe,
-  removeFavoritedRecipe,
 } from '../../services/localStorage';
-import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
-import blackHeartIcon from '../../images/blackHeartIcon.svg';
+
 import './styles.css';
 
 const DetailsDrink = () => {
   const NUMBER_OF_RECOMENDATIONS = 6;
   const { id } = useParams();
-  const location = useLocation();
-  const locationPath = location.pathname.replace(/\/(\w+)\/(.+)/, '$1');
+  // const location = useLocation();
+  // const locationPath = location.pathname.replace(/\/(\w+)\/(.+)/, '$1');
   const history = useHistory();
 
   const [recipeDetails, setRecipeDetails] = useState('');
   const [recomendations, setRecomendations] = useState([]);
   const [bottomButtonText, setBottomButtonText] = useState('Iniciar receita');
-  const [favorited, setFavorited] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
 
   const recipeDetailsURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const mealsURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
-  const drinksURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  // const drinksURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
   const fetchData = async (url, callback) => {
     const results = await fetch(url)
@@ -55,28 +51,25 @@ const DetailsDrink = () => {
     fetchData(recipeDetailsURL, (results) => setRecipeDetails(results.drinks[0]));
   }, []);
   useEffect(() => {
-    switch (locationPath) {
-    case 'comidas':
-      fetchData(drinksURL, (results) => setRecomendations(
-        results.drinks.slice(0, NUMBER_OF_RECOMENDATIONS),
-      ));
-      break;
-    case 'bebidas':
-      fetchData(mealsURL, (results) => setRecomendations(
-        results.meals.slice(0, NUMBER_OF_RECOMENDATIONS),
-      ));
-      break;
-    default:
-      break;
-    }
+    fetchData(mealsURL, (results) => setRecomendations(
+      results.meals.slice(0, NUMBER_OF_RECOMENDATIONS),
+    ));
+    // switch (locationPath) {
+    // case 'comidas':
+    //   fetchData(drinksURL, (results) => setRecomendations(
+    //     results.drinks.slice(0, NUMBER_OF_RECOMENDATIONS),
+    //   ));
+    //   break;
+    // case 'bebidas':
+    //   break;
+    // default:
+    //   break;
+    // }
   }, []);
   useEffect(() => {
     if (checkDoneRecipes('drink', id)) setBottomButtonText('');
     else if (checkProgressRecipes('drink', id)) setBottomButtonText('Continuar Receita');
   }, []);
-  useEffect(() => {
-    if (checkFavoriteRecipes('bebida', id)) setFavorited(true);
-  }, [favorited]);
 
   const ingredientsList = () => {
     const MAX_NUMBER_OF_INGREDIENTS = 20;
@@ -116,37 +109,7 @@ const DetailsDrink = () => {
                 <Typography data-testid="recipe-category">
                   {recipeDetails.strAlcoholic}
                 </Typography>
-                {favorited
-                  ? (
-                    <Button
-                      onClick={ () => {
-                        setFavorited(false);
-                        removeFavoritedRecipe(id);
-                      } }
-                    >
-                      <img
-                        src={ blackHeartIcon }
-                        style={ { width: 20 } }
-                        alt="black heart"
-                        data-testid="favorite-btn"
-                      />
-                    </Button>
-                  )
-                  : (
-                    <Button
-                      onClick={ () => {
-                        setFavorited(true);
-                        saveFavoriteRecipe(recipeDetails);
-                      } }
-                    >
-                      <img
-                        src={ whiteHeartIcon }
-                        style={ { width: 20 } }
-                        alt="white heart"
-                        data-testid="favorite-btn"
-                      />
-                    </Button>
-                  )}
+                <FavoriteButton id={ id } recipe={ recipeDetails } type="bebida" />
                 <Button
                   data-testid="share-btn"
                   onClick={ () => {
