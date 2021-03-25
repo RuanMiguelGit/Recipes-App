@@ -7,7 +7,6 @@ import {
   CardContent,
   CardMedia,
   Typography,
-  IconButton,
   List,
   ListItem,
   ListItemText,
@@ -16,10 +15,15 @@ import {
 } from '@material-ui/core';
 import {
   Share as ShareIcon,
-  Favorite as FavoriteIcon,
 } from '@material-ui/icons';
 import RecomendationsCarousel from '../../components/RecomendationsCarousel';
-import { checkDoneRecipes, checkProgressRecipes } from '../../services/localStorage';
+import {
+  checkDoneRecipes,
+  checkProgressRecipes,
+  checkFavoriteRecipes,
+} from '../../services/localStorage';
+import whiteHeartIcon from '../../images/whiteHeartIcon.svg';
+import blackHeartIcon from '../../images/blackHeartIcon.svg';
 
 import './styles.css';
 
@@ -33,6 +37,7 @@ const DetailsFood = () => {
   const [recipeDetails, setRecipeDetails] = useState('');
   const [recomendations, setRecomendations] = useState([]);
   const [bottomButtonText, setBottomButtonText] = useState('Iniciar receita');
+  const [favorited, setFavorited] = useState(false);
 
   const recipeDetailsURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const mealsURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -68,6 +73,9 @@ const DetailsFood = () => {
     if (checkDoneRecipes('food', id)) setBottomButtonText('');
     else if (checkProgressRecipes('food', id)) setBottomButtonText('Continuar Receita');
   }, []);
+  useEffect(() => {
+    if (checkFavoriteRecipes('comida', id)) setFavorited(true);
+  }, [favorited]);
 
   const ingredientsList = () => {
     const MAX_NUMBER_OF_INGREDIENTS = 20;
@@ -113,18 +121,36 @@ const DetailsFood = () => {
                 <Typography data-testid="recipe-category">
                   {recipeDetails.strCategory}
                 </Typography>
-                <IconButton
-                  aria-label="add to favorites"
-                  data-testid="favorite-btn"
-                >
-                  <FavoriteIcon />
-                </IconButton>
-                <IconButton
-                  aria-label="share"
+                {favorited
+                  ? (
+                    <Button
+                      onClick={ () => setFavorited(false) }
+                    >
+                      <img
+                        src={ blackHeartIcon }
+                        style={ { width: 20 } }
+                        alt="black heart"
+                        data-testid="favorite-btn"
+                      />
+                    </Button>
+                  )
+                  : (
+                    <Button
+                      onClick={ () => setFavorited(true) }
+                    >
+                      <img
+                        src={ whiteHeartIcon }
+                        style={ { width: 20 } }
+                        alt="white heart"
+                        data-testid="favorite-btn"
+                      />
+                    </Button>
+                  )}
+                <Button
                   data-testid="share-btn"
                 >
                   <ShareIcon />
-                </IconButton>
+                </Button>
                 <List>
                   { ingredientsList().map((ingredientAndMeasure, index) => (
                     <ListItem key={ index }>

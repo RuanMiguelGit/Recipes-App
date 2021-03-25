@@ -42,3 +42,14 @@ export const checkDoneRecipes = (type, id) => {
     : '';
   return result;
 };
+
+export const checkFavoriteRecipes = (type, id) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  console.log(favoriteRecipes);
+  const result = favoriteRecipes
+    ? favoriteRecipes
+      .filter((mixedRecipe) => mixedRecipe.type === type)
+      .find((recipe) => recipe.id.toString() === id)
+    : '';
+  return result;
+};
