@@ -5,11 +5,12 @@ import RecipeCardsContainer from '../components/Cards/RecipeCardsContainer';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import Searchbar from '../components/Searchbar';
+import CategoriesSelector from '../components/Selectors/CategoriesSelector';
 import { Context } from '../context';
 import getApiData from '../services/apiRequest';
 
 const MainFoods = () => {
-  const { apiData, hideSearchBar } = useContext(Context);
+  const { apiData, hideSearchBar, filteredRecipes } = useContext(Context);
   const [loading, setLoading] = useState(true);
   useEffect(() => {
     hideSearchBar.set(true);
@@ -28,8 +29,13 @@ const MainFoods = () => {
         Show
       />
       { !hideSearchBar.value && <Searchbar />}
+      {!loading && <CategoriesSelector recipeType="food" />}
       { loading ? <Loading /> : (<RecipeCardsContainer
-        cardsInfos={ apiData.value }
+        cardsInfos={
+          filteredRecipes.value.length > 0
+            ? filteredRecipes.value
+            : apiData.value
+        }
         cardType="food"
         maxCards={ 12 }
       />

@@ -13,7 +13,86 @@ export const saveUserEmailInLocalStorage = (email) => {
   localStorage.setItem('user', localStorageUser);
 };
 
+export const getUserEmail = () => {
+  const { email } = JSON.parse(localStorage.user);
+  if (!email) return '';
+  return email;
+};
+
 export const getDoneRecipes = () => {
   const doneRecipes = JSON.parse(localStorage.doneRecipes);
   return doneRecipes;
+};
+
+export const checkProgressRecipes = (type, id) => {
+  const inProgressRecipes = JSON.parse(localStorage.getItem('inProgressRecipes'));
+  let result = '';
+  if (inProgressRecipes) {
+    switch (type) {
+    case 'food':
+      result = Object.keys(inProgressRecipes.meals)
+        .find((key) => key.toString() === id);
+      break;
+    case 'drink':
+      result = Object.keys(inProgressRecipes.cocktails)
+        .find((key) => key.toString() === id);
+      break;
+    default:
+      result = '';
+    }
+  }
+  return result;
+};
+
+export const checkDoneRecipes = (type, id) => {
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  const result = doneRecipes
+    ? doneRecipes
+      .filter((mixedRecipe) => mixedRecipe.type === type)
+      .find((recipe) => recipe.id.toString() === id)
+    : '';
+  return result;
+};
+
+export const checkFavoriteRecipes = (type, id) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const result = favoriteRecipes
+    ? favoriteRecipes
+      .filter((mixedRecipe) => mixedRecipe.type === type)
+      .find((recipe) => recipe.id.toString() === id)
+    : '';
+  return result;
+};
+
+export const saveFavoriteRecipe = (recipe) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const newFavorite = recipe.idMeal
+    ? {
+      id: recipe.idMeal,
+      type: 'comida',
+      area: recipe.strArea,
+      category: recipe.strCategory,
+      alcoholicOrNot: '',
+      name: recipe.strMeal,
+      image: recipe.strMealThumb,
+    }
+    : {
+      id: recipe.idDrink,
+      type: 'bebida',
+      area: '',
+      category: recipe.strCategory,
+      alcoholicOrNot: recipe.strAlcoholic,
+      name: recipe.strDrink,
+      image: recipe.strDrinkThumb,
+    };
+  if (favoriteRecipes) {
+    favoriteRecipes.push(newFavorite);
+    localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
+  } else localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
+};
+
+export const removeFavoritedRecipe = (id) => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  const result = favoriteRecipes.filter((recipe) => recipe.id !== id);
+  localStorage.setItem('favoriteRecipes', JSON.stringify(result));
 };

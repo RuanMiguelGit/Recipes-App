@@ -4,7 +4,6 @@ import { useHistory } from 'react-router-dom';
 import { Card, CardContent, CardMedia, Chip,
   Grid, IconButton, Typography, Collapse } from '@material-ui/core';
 import Alert from '@material-ui/lab/Alert';
-import copy from 'clipboard-copy';
 
 import './styles.css';
 import shareIcon from '../../images/shareIcon.svg';
@@ -54,11 +53,9 @@ const DoneRecipe = ({ recipe, index }) => {
 
   const copyToClipBoard = () => {
     const { protocol, host } = window.location;
-    copy(`${protocol}//${host}${recipePath}`)
-      .then(() => {
-        setShowAlert(true);
-        setTimeout(() => setShowAlert(false), TWO_SECONDS);
-      });
+    navigator.clipboard.writeText(`${protocol}//${host}${recipePath}`);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), TWO_SECONDS);
   };
 
   const shareIconComponent = () => (
@@ -68,6 +65,7 @@ const DoneRecipe = ({ recipe, index }) => {
           src={ shareIcon }
           alt="share icon"
           data-testid={ `${index}-horizontal-share-btn` }
+          style={ { width: '22px' } }
         />
       </IconButton>
     </Grid>

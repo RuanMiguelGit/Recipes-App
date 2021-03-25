@@ -1,14 +1,14 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Button } from '@material-ui/core';
+import { Box, Button, Typography } from '@material-ui/core';
 import PropTypes from 'prop-types';
 import './ButtonLink.css';
 
 const ButtonLink = ({
   func, LinkT, name, className, size, variant, color, type, datatest,
 }) => (
-  <div>
-    <Link to={ LinkT }>
+  <Box m={ 0.25 }>
+    <Link to={ LinkT } className="text-link">
       <Button
         className={ className }
         size={ size }
@@ -18,14 +18,14 @@ const ButtonLink = ({
         data-testid={ datatest }
         onClick={ func }
       >
-        {name}
+        <Typography variant="button">{name}</Typography>
       </Button>
     </Link>
-  </div>
+  </Box>
 );
 
 ButtonLink.propTypes = {
-  LinkT: PropTypes.func.isRequired,
+  LinkT: PropTypes.string.isRequired,
   name: PropTypes.string.isRequired,
   className: PropTypes.string.isRequired,
   size: PropTypes.string.isRequired,
@@ -33,8 +33,11 @@ ButtonLink.propTypes = {
   color: PropTypes.string.isRequired,
   type: PropTypes.string.isRequired,
   datatest: PropTypes.string.isRequired,
-  func: PropTypes.func.isRequired,
+  func: PropTypes.func,
+};
 
+ButtonLink.defaultProps = {
+  func: () => {},
 };
 
 export default ButtonLink;

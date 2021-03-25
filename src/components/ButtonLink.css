@@ -2,7 +2,6 @@
   align-items: center;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   margin-top: 150px;
 }
 
@@ -10,4 +9,15 @@
   height: 100px;
   text-align: center;
   width: 300px;
+
+}
+
+.SizeDown {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.text-link {
+  text-decoration: none;
 }
