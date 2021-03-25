@@ -18,7 +18,6 @@ import {
   Share as ShareIcon,
   Favorite as FavoriteIcon,
 } from '@material-ui/icons';
-// import RecomendationsCarousel from '../../components/Carousel';
 import RecomendationsCarousel from '../../components/RecomendationsCarousel';
 
 import './styles.css';
