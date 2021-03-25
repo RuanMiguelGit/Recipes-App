@@ -12,3 +12,8 @@ export const saveUserEmailInLocalStorage = (email) => {
   const localStorageUser = JSON.stringify({ email });
   localStorage.setItem('user', localStorageUser);
 };
+
+export const getDoneRecipes = () => {
+  const doneRecipes = JSON.parse(localStorage.doneRecipes);
+  return doneRecipes;
+};
