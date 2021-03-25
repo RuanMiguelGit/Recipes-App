@@ -5,12 +5,12 @@ import {
   Grid,
   Card,
   CardContent,
-  // CardMedia,
   Typography,
   IconButton,
   List,
   ListItem,
   ListItemText,
+  AppBar,
   Button,
 } from '@material-ui/core';
 import {
@@ -84,21 +84,16 @@ const DetailsDrink = () => {
       justify="center"
       alignItems="center"
     >
-      <Grid item className="gridContainer">
+      <Grid item xs={ 12 }>
         {receipeDetails
           ? (
-            <Card className="cardContainer">
-              <CardContent className="contentContainer">
+            <Card>
+              <CardContent>
                 <img
                   src={ receipeDetails.strDrinkThumb }
                   alt={ receipeDetails.idDrink }
                   data-testid="recipe-photo"
                 />
-                {/* <CardMedia
-                  className="mediaImg"
-                  image={ receipeDetails.strDrinkThumb }
-                  data-testid="recipe-photo"
-                /> */}
                 <Typography data-testid="recipe-title">
                   {receipeDetails.strDrink}
                 </Typography>
@@ -131,15 +126,21 @@ const DetailsDrink = () => {
                 <Typography data-testid="instructions">
                   {receipeDetails.strInstructions}
                 </Typography>
-                <Button
-                  variant="contained"
-                  data-testid="start-recipe-btn"
-                >
-                  Iniciar receita
-                </Button>
                 { recomendations
                   ? <RecomendationsCarousel recomendations={ recomendations } />
                   : <p>Loading</p> }
+                <AppBar
+                  data-testid="start-recipe-btn"
+                  position="fixed"
+                  color="primary"
+                  style={ { top: 'auto', bottom: 0 } }
+                >
+                  <Button
+                    variant="contained"
+                  >
+                    Iniciar receita
+                  </Button>
+                </AppBar>
               </CardContent>
             </Card>)
           : <p>Loading</p> }

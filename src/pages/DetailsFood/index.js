@@ -11,6 +11,7 @@ import {
   List,
   ListItem,
   ListItemText,
+  AppBar,
   Button,
 } from '@material-ui/core';
 import {
@@ -61,7 +62,6 @@ const DetailsFood = () => {
       break;
     }
   }, []);
-  // console.log(receipeDetails);
 
   const ingredientsList = () => {
     const MAX_NUMBER_OF_INGREDIENTS = 20;
@@ -91,21 +91,16 @@ const DetailsFood = () => {
       justify="center"
       alignItems="center"
     >
-      <Grid item className="gridContainer">
+      <Grid item xs={ 12 }>
         {(receipeDetails && recomendations)
           ? (
-            <Card className="cardContainer">
-              <CardContent className="contentContainer">
+            <Card>
+              <CardContent>
                 <img
                   src={ receipeDetails.strMealThumb }
                   alt={ receipeDetails.idMeal }
                   data-testid="recipe-photo"
                 />
-                {/* <CardMedia
-                  className="mediaImg"
-                  image={ receipeDetails.strMealThumb }
-                  data-testid="recipe-photo"
-                /> */}
                 <Typography data-testid="recipe-title">
                   {receipeDetails.strMeal}
                 </Typography>
@@ -139,20 +134,25 @@ const DetailsFood = () => {
                   {receipeDetails.strInstructions}
                 </Typography>
                 <CardMedia
-                  className="mediaVideo"
                   component="iframe"
                   src={ embedVideoLink(receipeDetails.strYoutube) }
                   data-testid="video"
                 />
-                <Button
-                  variant="contained"
-                  data-testid="start-recipe-btn"
-                >
-                  Iniciar receita
-                </Button>
                 { recomendations
                   ? <RecomendationsCarousel recomendations={ recomendations } />
                   : <p>Loading</p> }
+                <AppBar
+                  data-testid="start-recipe-btn"
+                  position="fixed"
+                  color="primary"
+                  style={ { top: 'auto', bottom: 0 } }
+                >
+                  <Button
+                    variant="contained"
+                  >
+                    Iniciar receita
+                  </Button>
+                </AppBar>
               </CardContent>
             </Card>)
           : <p>Loading</p> }
