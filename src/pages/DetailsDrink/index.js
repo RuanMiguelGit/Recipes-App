@@ -18,6 +18,7 @@ import {
   Favorite as FavoriteIcon,
 } from '@material-ui/icons';
 import RecomendationsCarousel from '../../components/RecomendationsCarousel';
+import { checkDoneRecipes, checkProgressRecipes } from '../../services/localStorage';
 
 import './styles.css';
 
@@ -29,6 +30,7 @@ const DetailsDrink = () => {
 
   const [receipeDetails, setReceipeDetails] = useState('');
   const [recomendations, setRecomendations] = useState([]);
+  const [bottomButtonText, setBottomButtonText] = useState('Iniciar receita');
 
   const receipeDetailsURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
   const mealsURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -60,7 +62,10 @@ const DetailsDrink = () => {
       break;
     }
   }, []);
-  console.log(receipeDetails);
+  useEffect(() => {
+    if (checkDoneRecipes('drink', id)) setBottomButtonText('');
+    else if (checkProgressRecipes('drink', id)) setBottomButtonText('Continuar Receita');
+  }, []);
 
   const ingredientsList = () => {
     const MAX_NUMBER_OF_INGREDIENTS = 20;
@@ -129,18 +134,21 @@ const DetailsDrink = () => {
                 { recomendations
                   ? <RecomendationsCarousel recomendations={ recomendations } />
                   : <p>Loading</p> }
-                <AppBar
-                  data-testid="start-recipe-btn"
-                  position="fixed"
-                  color="primary"
-                  style={ { top: 'auto', bottom: 0 } }
-                >
-                  <Button
-                    variant="contained"
-                  >
-                    Iniciar receita
-                  </Button>
-                </AppBar>
+                {bottomButtonText
+                  ? (
+                    <AppBar
+                      data-testid="start-recipe-btn"
+                      position="fixed"
+                      color="primary"
+                      style={ { top: 'auto', bottom: 0 } }
+                    >
+                      <Button
+                        variant="contained"
+                      >
+                        {bottomButtonText}
+                      </Button>
+                    </AppBar>)
+                  : null}
               </CardContent>
             </Card>)
           : <p>Loading</p> }

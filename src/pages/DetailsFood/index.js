@@ -19,6 +19,7 @@ import {
   Favorite as FavoriteIcon,
 } from '@material-ui/icons';
 import RecomendationsCarousel from '../../components/RecomendationsCarousel';
+import { checkDoneRecipes, checkProgressRecipes } from '../../services/localStorage';
 
 import './styles.css';
 
@@ -28,10 +29,11 @@ const DetailsFood = () => {
   const location = useLocation();
   const locationPath = location.pathname.replace(/\/(\w+)\/(.+)/, '$1');
 
-  const [receipeDetails, setReceipeDetails] = useState('');
+  const [recipeDetails, setRecipeDetails] = useState('');
   const [recomendations, setRecomendations] = useState([]);
+  const [bottomButtonText, setBottomButtonText] = useState('Iniciar receita');
 
-  const receipeDetailsURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
+  const recipeDetailsURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const mealsURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
   const drinksURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
 
@@ -43,7 +45,7 @@ const DetailsFood = () => {
   };
 
   useEffect(() => {
-    fetchData(receipeDetailsURL, (results) => setReceipeDetails(results.meals[0]));
+    fetchData(recipeDetailsURL, (results) => setRecipeDetails(results.meals[0]));
   }, []);
   useEffect(() => {
     switch (locationPath) {
@@ -61,6 +63,10 @@ const DetailsFood = () => {
       break;
     }
   }, []);
+  useEffect(() => {
+    if (checkDoneRecipes('food', id)) setBottomButtonText('');
+    else if (checkProgressRecipes('food', id)) setBottomButtonText('Continuar Receita');
+  }, []);
 
   const ingredientsList = () => {
     const MAX_NUMBER_OF_INGREDIENTS = 20;
@@ -68,8 +74,8 @@ const DetailsFood = () => {
     for (let index = 1; index <= MAX_NUMBER_OF_INGREDIENTS; index += 1) {
       arrayOfIngredients.push(
         {
-          ingredient: receipeDetails[`strIngredient${index}`],
-          measure: receipeDetails[`strMeasure${index}`],
+          ingredient: recipeDetails[`strIngredient${index}`],
+          measure: recipeDetails[`strMeasure${index}`],
         },
       );
     }
@@ -91,20 +97,20 @@ const DetailsFood = () => {
       alignItems="center"
     >
       <Grid item xs={ 12 }>
-        {(receipeDetails && recomendations)
+        {(recipeDetails && recomendations)
           ? (
             <Card>
               <CardContent>
                 <img
-                  src={ receipeDetails.strMealThumb }
-                  alt={ receipeDetails.idMeal }
+                  src={ recipeDetails.strMealThumb }
+                  alt={ recipeDetails.idMeal }
                   data-testid="recipe-photo"
                 />
                 <Typography data-testid="recipe-title">
-                  {receipeDetails.strMeal}
+                  {recipeDetails.strMeal}
                 </Typography>
                 <Typography data-testid="recipe-category">
-                  {receipeDetails.strCategory}
+                  {recipeDetails.strCategory}
                 </Typography>
                 <IconButton
                   aria-label="add to favorites"
@@ -130,28 +136,31 @@ const DetailsFood = () => {
                   ))}
                 </List>
                 <Typography data-testid="instructions">
-                  {receipeDetails.strInstructions}
+                  {recipeDetails.strInstructions}
                 </Typography>
                 <CardMedia
                   component="iframe"
-                  src={ embedVideoLink(receipeDetails.strYoutube) }
+                  src={ embedVideoLink(recipeDetails.strYoutube) }
                   data-testid="video"
                 />
                 { recomendations
                   ? <RecomendationsCarousel recomendations={ recomendations } />
                   : <p>Loading</p> }
-                <AppBar
-                  data-testid="start-recipe-btn"
-                  position="fixed"
-                  color="primary"
-                  style={ { top: 'auto', bottom: 0 } }
-                >
-                  <Button
-                    variant="contained"
-                  >
-                    Iniciar receita
-                  </Button>
-                </AppBar>
+                {bottomButtonText
+                  ? (
+                    <AppBar
+                      data-testid="start-recipe-btn"
+                      position="fixed"
+                      color="primary"
+                      style={ { top: 'auto', bottom: 0 } }
+                    >
+                      <Button
+                        variant="contained"
+                      >
+                        {bottomButtonText}
+                      </Button>
+                    </AppBar>)
+                  : null}
               </CardContent>
             </Card>)
           : <p>Loading</p> }
