@@ -38,6 +38,7 @@ const DetailsFood = () => {
   const [recomendations, setRecomendations] = useState([]);
   const [bottomButtonText, setBottomButtonText] = useState('Iniciar receita');
   const [favorited, setFavorited] = useState(false);
+  const [copiedLink, setCopiedLink] = useState(false);
 
   const recipeDetailsURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
   const mealsURL = 'https://www.themealdb.com/api/json/v1/1/search.php?s=';
@@ -148,8 +149,13 @@ const DetailsFood = () => {
                   )}
                 <Button
                   data-testid="share-btn"
+                  onClick={ () => {
+                    navigator.clipboard.writeText(window.location.href);
+                    setCopiedLink(true);
+                  } }
                 >
                   <ShareIcon />
+                  {copiedLink ? <span>Link copiado!</span> : null}
                 </Button>
                 <List>
                   { ingredientsList().map((ingredientAndMeasure, index) => (
