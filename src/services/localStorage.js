@@ -21,6 +21,7 @@ export const getUserEmail = () => {
 
 export const getDoneRecipes = () => {
   const doneRecipes = JSON.parse(localStorage.doneRecipes);
+  if (!doneRecipes) return [];
   return doneRecipes;
 };
 
@@ -89,6 +90,12 @@ export const saveFavoriteRecipe = (recipe) => {
     favoriteRecipes.push(newFavorite);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
   } else localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
+};
+
+export const getFavoriteRecipes = () => {
+  const favoriteRecipes = JSON.parse(localStorage.favoriteRecipes);
+  if (!favoriteRecipes) return [];
+  return favoriteRecipes;
 };
 
 export const removeFavoritedRecipe = (id) => {
