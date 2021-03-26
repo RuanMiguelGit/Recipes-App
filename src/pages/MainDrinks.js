@@ -1,27 +1,31 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import { Context } from '../context';
 import Header from '../components/Header';
 import Searchbar from '../components/Searchbar';
 import Footer from '../components/Footer';
 import Loading from '../components/animation/Loading';
 import RecipeCardsContainer from '../components/Cards/RecipeCardsContainer';
-import getApiData from '../services/apiRequest';
+import getApiData, { EpAllRecipes, EpRecipesByIngredients } from '../services/apiRequest';
 import CategoriesSelector from '../components/Selectors/CategoriesSelector';
 
 const MainDrinks = () => {
   const { hideSearchBar, apiData, filteredRecipes } = useContext(Context);
   const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    getApiData('drink', 'search.php?s=').then((data) => {
-      apiData.set(data);
-      setLoading(false);
-    });
-  }, []);
+  const { filter } = useParams();
 
   useEffect(() => {
     hideSearchBar.set(true);
+
+    const request = filter
+      ? ['drink', EpRecipesByIngredients, filter]
+      : ['drink', EpAllRecipes];
+
+    getApiData(...request).then((data) => {
+      apiData.set(data);
+      setLoading(false);
+    });
   }, []);
 
   return (

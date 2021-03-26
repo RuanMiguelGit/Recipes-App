@@ -6,12 +6,13 @@ import PropTypes from 'prop-types';
 import './styles.css';
 import { useHistory } from 'react-router-dom';
 
-const RecipeCard = ({ title, thumbnail, index, clickRedirectPath }) => {
+const RecipeCard = ({ title, thumbnail, index, clickRedirectPath, cardType }) => {
   const history = useHistory();
+
   return (
     <Grid item xs={ 6 }>
       <Card
-        data-testid={ `${index}-recipe-card` }
+        data-testid={ `${index}-${cardType}-card` }
         className="recipe-card"
         onClick={ () => history.push(clickRedirectPath) }
       >
@@ -43,5 +44,6 @@ RecipeCard.propTypes = {
   thumbnail: PropTypes.string.isRequired,
   index: PropTypes.number.isRequired,
   clickRedirectPath: PropTypes.string.isRequired,
+  cardType: PropTypes.string.isRequired,
 };
 export default RecipeCard;

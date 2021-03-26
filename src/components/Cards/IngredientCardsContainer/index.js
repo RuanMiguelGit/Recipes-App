@@ -4,19 +4,17 @@ import PropTypes from 'prop-types';
 import RecipeCard from '../RecipeCard';
 import './styles.css';
 
-const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
+const IngredientCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
   const cardTypes = {
     food: {
-      image: 'strMealThumb',
-      name: 'strMeal',
+      ingredient: 'strIngredient',
+      URL: 'https://www.themealdb.com/images/ingredients/',
       redirectPath: '/comidas',
-      idName: 'idMeal',
     },
     drink: {
-      image: 'strDrinkThumb',
-      name: 'strDrink',
+      ingredient: 'strIngredient1',
+      URL: 'https://www.thecocktaildb.com/images/ingredients/',
       redirectPath: '/bebidas',
-      idName: 'idDrink',
     },
   };
 
@@ -26,38 +24,38 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
     return cardsInfos;
   };
 
-  const { image, name, redirectPath, idName } = cardTypes[cardType];
+  const { ingredient, URL, redirectPath } = cardTypes[cardType];
 
   return (
     <Grid
       container
       justify="center"
       alignItems="center"
-      className="recipe-cards-container"
+      className="ingredient-cards-container"
     >
       {cardsToRender().map((card, index) => (
 
         <RecipeCard
-          key={ index }
-          title={ card[name] }
-          thumbnail={ card[image] }
+          key={ card[ingredient] }
+          title={ card[ingredient] }
+          thumbnail={ `${URL}${card[ingredient]}-Small.png` }
           index={ index }
-          clickRedirectPath={ `${redirectPath}/${card[idName]}` }
-          cardType="recipe"
+          cardType="ingredient"
+          clickRedirectPath={ `${redirectPath}/${card[ingredient]}` }
         />
       ))}
     </Grid>
   );
 };
 
-RecipeCardsContainer.propTypes = {
+IngredientCardsContainer.propTypes = {
   cardsInfos: PropTypes.arrayOf(PropTypes.object),
   cardType: PropTypes.string.isRequired,
   maxCards: PropTypes.number.isRequired,
 };
 
-RecipeCardsContainer.defaultProps = {
+IngredientCardsContainer.defaultProps = {
   cardsInfos: [],
 };
 
-export default RecipeCardsContainer;
+export default IngredientCardsContainer;
