@@ -18,9 +18,7 @@ const MainFoods = () => {
       apiData.set(data);
       setLoading(false);
     });
-    return () => { apiData.set({}); };
   }, []);
-  console.log('MainFood');
 
   return (
 

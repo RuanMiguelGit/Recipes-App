@@ -14,16 +14,12 @@ const MainDrinks = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    hideSearchBar.set(true);
     getApiData('drink', 'search.php?s=').then((data) => {
       apiData.set(data);
       setLoading(false);
     });
-
-    hideSearchBar.set(true);
-    return () => { apiData.set({}); };
   }, []);
-
-  console.log('MainDrinks');
 
   return (
     <div>
