@@ -1,14 +1,25 @@
-import {
-  Card, CardContent, CardMedia, Chip, Grid, IconButton, Typography,
-} from '@material-ui/core';
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
+import { Card, CardContent, CardMedia,
+  Grid, IconButton, Typography, Collapse } from '@material-ui/core';
+import Alert from '@material-ui/lab/Alert';
 
 import './styles.css';
 import shareIcon from '../../images/shareIcon.svg';
+import favIcon from '../../images/blackHeartIcon.svg';
 
-const Recipe = ({ recipe, index }) => {
-  const { name, type, area, category, image, doneDate, tags, alcoholicOrNot } = recipe;
+const TWO_SECONDS = 2000;
+
+const FavRecipe = ({ recipe, index }) => {
+  const history = useHistory();
+  const [showAlert, setShowAlert] = useState(false);
+  const { id, name, type, area, category,
+    image, alcoholicOrNot, removeFav } = recipe;
+
+  const recipePath = `/${type}s/${id}`;
+
+  const pushToRecipePath = () => history.push(recipePath);
 
   const topText = () => {
     if (type === 'comida') {
@@ -20,7 +31,7 @@ const Recipe = ({ recipe, index }) => {
   };
 
   const nameAndCategoryComponent = () => (
-    <Grid item xs={ 10 }>
+    <Grid item xs={ 12 }>
       <Typography
         variant="body2"
         data-testid={ `${index}-horizontal-top-text` }
@@ -33,6 +44,7 @@ const Recipe = ({ recipe, index }) => {
         variant="body1"
         data-testid={ `${index}-horizontal-name` }
         color="textPrimary"
+        onClick={ pushToRecipePath }
         gutterBottom
       >
         { `${name}` }
@@ -40,16 +52,33 @@ const Recipe = ({ recipe, index }) => {
     </Grid>
   );
 
+  const copyToClipBoard = () => {
+    const { protocol, host } = window.location;
+    navigator.clipboard.writeText(`${protocol}//${host}${recipePath}`);
+    setShowAlert(true);
+    setTimeout(() => setShowAlert(false), TWO_SECONDS);
+  };
+
   const shareIconComponent = () => (
-    <Grid item xs={ 2 }>
-      <IconButton onClick={ () => {} }>
-        <img
-          src={ shareIcon }
-          alt="share icon"
-          data-testid={ `${index}-horizontal-share-btn` }
-        />
-      </IconButton>
-    </Grid>
+    <IconButton onClick={ copyToClipBoard }>
+      <img
+        src={ shareIcon }
+        alt="share icon"
+        data-testid={ `${index}-horizontal-share-btn` }
+        style={ { width: '22px' } }
+      />
+    </IconButton>
+  );
+
+  const favIconComponent = () => (
+    <IconButton onClick={ () => removeFav(id) }>
+      <img
+        src={ favIcon }
+        alt="favorited icon"
+        data-testid={ `${index}-horizontal-favorite-btn` }
+        style={ { width: '22px' } }
+      />
+    </IconButton>
   );
 
   return (
@@ -61,43 +90,36 @@ const Recipe = ({ recipe, index }) => {
           image={ image }
           title={ name }
           style={ { maxWidth: '50%' } }
+          onClick={ pushToRecipePath }
         />
         <CardContent className="done-recipe-content">
-          <Grid container justify="space-around">
-            { nameAndCategoryComponent() }
+          { nameAndCategoryComponent() }
+          <Grid container item xs={ 12 } justify="space-around">
             { shareIconComponent() }
-          </Grid>
-          <Typography variant="body2" data-testid={ `${index}-horizontal-done-date` }>
-            { `Feita em: ${doneDate}` }
-          </Typography>
-          <Grid container wrap="wrap">
-            { tags.filter((tag, tagIndex) => tagIndex < 2)
-              .map((tag) => (
-                <Chip
-                  key={ tag }
-                  label={ tag }
-                  data-testid={ `${index}-${tag}-horizontal-tag` }
-                  style={ { margin: '6px 6px 0 0' } }
-                />
-              )) }
+            { favIconComponent() }
           </Grid>
         </CardContent>
       </Card>
+      <Collapse in={ showAlert } className="copy-to-clip-board-alert">
+        <Alert onClose={ () => {} }>
+          Link copiado!
+        </Alert>
+      </Collapse>
     </Grid>
   );
 };
 
-Recipe.propTypes = {
+FavRecipe.propTypes = {
   recipe: PropTypes.shape({
+    id: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     type: PropTypes.string.isRequired,
     area: PropTypes.string.isRequired,
     category: PropTypes.string.isRequired,
     image: PropTypes.string.isRequired,
-    doneDate: PropTypes.string.isRequired,
-    tags: PropTypes.arrayOf(PropTypes.string).isRequired,
+    removeFav: PropTypes.func.isRequired,
     alcoholicOrNot: PropTypes.string.isRequired,
   }).isRequired,
   index: PropTypes.number.isRequired,
 };
-export default Recipe;
+export default FavRecipe;
