@@ -9,12 +9,12 @@ const IngredientCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
     food: {
       ingredient: 'strIngredient',
       URL: 'https://www.themealdb.com/images/ingredients/',
-      redirectPath: '/comidas',
+      redirectPath: '/comidas/ingredientes/',
     },
     drink: {
       ingredient: 'strIngredient1',
       URL: 'https://www.thecocktaildb.com/images/ingredients/',
-      redirectPath: '/bebidas',
+      redirectPath: '/bebidas/ingredientes/',
     },
   };
 
@@ -41,7 +41,7 @@ const IngredientCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
           thumbnail={ `${URL}${card[ingredient]}-Small.png` }
           index={ index }
           cardType="ingredient"
-          clickRedirectPath={ `${redirectPath}/${card[ingredient]}` }
+          clickRedirectPath={ `${redirectPath}${card[ingredient]}` }
         />
       ))}
     </Grid>

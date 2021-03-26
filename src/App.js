@@ -28,16 +28,18 @@ function App() {
         <Route exact path="/explorar/bebidas/ingredientes">
           <ExploreByIngredients drinksOrFoods="drinks" />
         </Route>
+        <Route path="/comidas/ingredientes/:filter" component={ MainFoods } />
+        <Route path="/bebidas/ingredientes/:filter" component={ MainDrinks } />
         <Route exact path="/explorar/comidas/area" component={ Origin } />
         <Route exact path="/explorar/comidas" component={ ExplorerFods } />
         <Route path="/explorar/bebidas" component={ ExplorerDrinks } />
         <Route path="/explorar" component={ Explorer } />
         <Route path="/comidas/:id/in-progress" component={ RecipeInProgressFoos } />
         <Route path="/bebidas/:id/in-progress" component={ RecipeInProgressDrinks } />
-        <Route path="/comidas/details/:id" component={ DetailsFood } />
-        <Route path="/bebidas/details/:id" component={ DetailsDrink } />
-        <Route path="/comidas/:filter?" component={ MainFoods } />
-        <Route path="/bebidas/:filter?" component={ MainDrinks } />
+        <Route path="/comidas/:id" component={ DetailsFood } />
+        <Route path="/bebidas/:id" component={ DetailsDrink } />
+        <Route path="/comidas/" component={ MainFoods } />
+        <Route path="/bebidas/" component={ MainDrinks } />
         <Route path="/receitas-feitas" component={ RecipesDone } />
         <Route path="/receitas-favoritas" component={ RecipesFav } />
         <Route path="/perfil" component={ Profile } />
