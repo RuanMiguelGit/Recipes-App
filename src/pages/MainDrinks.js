@@ -18,11 +18,12 @@ const MainDrinks = () => {
       apiData.set(data);
       setLoading(false);
     });
+
+    hideSearchBar.set(true);
+    return () => { apiData.set({}); };
   }, []);
 
-  useEffect(() => {
-    hideSearchBar.set(true);
-  }, []);
+  console.log('MainDrinks');
 
   return (
     <div>
