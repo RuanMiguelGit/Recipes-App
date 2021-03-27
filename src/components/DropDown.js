@@ -35,7 +35,7 @@ const CategoryDropDownSelector = ({ recipeType }) => {
   return (
 
     <FormControl className="formControl" margin="dense" size="small" variant="standard">
-      <Select
+      <select
         data-testid="explore-by-area-dropdown"
       >
         <option
@@ -65,7 +65,7 @@ const CategoryDropDownSelector = ({ recipeType }) => {
 
             </option>
           ))}
-      </Select>
+      </select>
 
     </FormControl>
 
