@@ -67,6 +67,7 @@ const CategoriesSelector = ({ recipeType }) => {
             </Button>
           </Grid>
         ))}
+
     </Grid>
 
   );

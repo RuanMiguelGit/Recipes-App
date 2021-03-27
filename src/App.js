@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import ConxtextProvider from './context';
 import './App.css';
 import Login from './pages/Login';
+import NotFound from './pages/NotFound';
 import MainFoods from './pages/MainFoods';
 import MainDrinks from './pages/MainDrinks';
 import Explorer from './pages/Explorer';
@@ -46,6 +47,7 @@ function App() {
         <Route path="/receitas-feitas" component={ RecipesDone } />
         <Route path="/receitas-favoritas" component={ RecipesFav } />
         <Route path="/perfil" component={ Profile } />
+        <Route path="/explorar/bebidas/area" component={ NotFound } />
         <Route path="/" component={ Login } />
       </Switch>
     </ConxtextProvider>

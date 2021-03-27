@@ -9,7 +9,7 @@ const ExploreDriksByIngredients = () => (
       foodClass="explorer-drinks-ingredients"
       Show={ false }
     />
-    
+
     <Footer
       foodClass="explorer-drinks-ingredients-footer"
     />

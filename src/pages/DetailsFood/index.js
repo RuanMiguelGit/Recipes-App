@@ -143,7 +143,7 @@ const DetailsFood = () => {
                       position="fixed"
                       color="primary"
                       style={ { top: 'auto',
-                      bottom: 0 } }
+                        bottom: 0 } }
                     >
                       <Button
                         variant="contained"
