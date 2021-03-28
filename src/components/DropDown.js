@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FormControl } from '@material-ui/core';
+import {FormControl, Button, NativeSelect, InputLabel, Select, TextField } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../context';
@@ -9,10 +9,10 @@ import './FormControl.css';
 
 const CategoryDropDownSelector = ({ recipeType }) => {
   const { apiCategories, filteredName, apiData } = useContext(Context);
-  const [currentFilterName, setcurrentFilterName] = useState('');
+  const [currentFilterName, setcurrentFilterName] = useState('All');
   useEffect(() => {
     getApiData(recipeType, EpRecipesByArea).then((data) => {
-      apiCategories.set(data);
+      apiCategories.set(data);npm,
       return () => { apiCategories.set([]); };
     });
   }, []);
@@ -33,12 +33,16 @@ const CategoryDropDownSelector = ({ recipeType }) => {
   };
 
   return (
-    <FormControl className="formControl">
-      <select
-        className="formControl"
+    <FormControl>
+    <InputLabel htmlFor="select">Area</InputLabel> 
+    <select 
+      
         data-testid="explore-by-area-dropdown"
         id="select"
         type="select"
+
+        value={currentFilterName}
+        onChange={(e)=> setcurrentFilterName(e.target.value)}
       >
         <option
           key="All"
@@ -68,7 +72,7 @@ const CategoryDropDownSelector = ({ recipeType }) => {
             </option>
           ))}
       </select>
-    </FormControl>
+     </FormControl> 
 
   );
 };
