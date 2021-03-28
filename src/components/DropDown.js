@@ -12,7 +12,7 @@ const CategoryDropDownSelector = ({ recipeType }) => {
   const [currentFilterName, setcurrentFilterName] = useState('All');
   useEffect(() => {
     getApiData(recipeType, EpRecipesByArea).then((data) => {
-      apiCategories.set(data);npm,
+      apiCategories.set(data);
       return () => { apiCategories.set([]); };
     });
   }, []);
