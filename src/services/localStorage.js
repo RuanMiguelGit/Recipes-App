@@ -14,13 +14,14 @@ export const saveUserEmailInLocalStorage = (email) => {
 };
 
 export const getUserEmail = () => {
-  const { email } = JSON.parse(localStorage.user);
-  if (!email) return '';
-  return email;
+  const user = JSON.parse(localStorage.getItem('user'));
+  if (user && user.email) return user.email;
+  return '';
 };
 
 export const getDoneRecipes = () => {
-  const doneRecipes = JSON.parse(localStorage.doneRecipes);
+  const doneRecipes = JSON.parse(localStorage.getItem('doneRecipes'));
+  if (!doneRecipes) return [];
   return doneRecipes;
 };
 
@@ -89,6 +90,12 @@ export const saveFavoriteRecipe = (recipe) => {
     favoriteRecipes.push(newFavorite);
     localStorage.setItem('favoriteRecipes', JSON.stringify(favoriteRecipes));
   } else localStorage.setItem('favoriteRecipes', JSON.stringify([newFavorite]));
+};
+
+export const getFavoriteRecipes = () => {
+  const favoriteRecipes = JSON.parse(localStorage.getItem('favoriteRecipes'));
+  if (!favoriteRecipes) return [];
+  return favoriteRecipes;
 };
 
 export const removeFavoritedRecipe = (id) => {
