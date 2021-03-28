@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {FormControl } from '@material-ui/core';
+import { FormControl } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../context';
@@ -33,10 +33,12 @@ const CategoryDropDownSelector = ({ recipeType }) => {
   };
 
   return (
-
-    <FormControl className="formControl" margin="dense" size="small" variant="standard">
+    <FormControl className="formControl">
       <select
+        className="formControl"
         data-testid="explore-by-area-dropdown"
+        id="select"
+        type="select"
       >
         <option
           key="All"
@@ -66,7 +68,6 @@ const CategoryDropDownSelector = ({ recipeType }) => {
             </option>
           ))}
       </select>
-
     </FormControl>
 
   );

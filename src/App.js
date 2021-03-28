@@ -34,6 +34,7 @@ function App() {
           path="/explorar/bebidas/ingredientes"
           component={ ExploreDriksByIngredients }
         />
+        <Route path="/explorar/bebidas/area" component={ NotFound } />
         <Route exact path="/explorar/comidas/area" component={ Origin } />
         <Route exact path="/explorar/comidas" component={ ExplorerFods } />
         <Route path="/explorar/bebidas" component={ ExplorerDrinks } />
@@ -47,7 +48,6 @@ function App() {
         <Route path="/receitas-feitas" component={ RecipesDone } />
         <Route path="/receitas-favoritas" component={ RecipesFav } />
         <Route path="/perfil" component={ Profile } />
-        <Route path="/explorar/bebidas/area" component={ NotFound } />
         <Route path="/" component={ Login } />
       </Switch>
     </ConxtextProvider>

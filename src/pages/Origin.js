@@ -28,11 +28,11 @@ const Origin = () => {
         Show
       />
 
-      { !hideSearchBar.value && <Searchbar type="origin" />}
+      { !hideSearchBar.value && <Searchbar type="food" />}
       {!loading && <CategoryDropDownSelector recipeType="food" />}
       { loading ? <Loading /> : (<RecipeCardsContainer
         cardsInfos={
-          filteredName.value.length > 0 && filteredName.value.length !== null
+          filteredName.value.length > 0
             ? filteredName.value
             : apiData.value
         }
