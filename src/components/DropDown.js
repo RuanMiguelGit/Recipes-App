@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import {FormControl, Button, NativeSelect, InputLabel, Select, TextField } from '@material-ui/core';
+import { FormControl, InputLabel } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../context';
@@ -8,14 +8,14 @@ import getApiData,
 import './FormControl.css';
 
 const CategoryDropDownSelector = ({ recipeType }) => {
-  const { apiCategories, filteredName, apiData } = useContext(Context);
-  const [currentFilterName, setcurrentFilterName] = useState('All');
+  const { apiName, filteredName, apiData } = useContext(Context);
+  const [currentFilterName, setcurrentFilterName] = useState('');
   useEffect(() => {
     getApiData(recipeType, EpRecipesByArea).then((data) => {
-      apiCategories.set(data);
-      return () => { apiCategories.set([]); };
+      apiName.set(data);
+      return () => { apiName.set([]); };
     });
-  }, []);
+  }, [currentFilterName]);
 
   const handleClick = (e) => {
     if (e.target.textContent === currentFilterName || e.target.textContent === 'All') {
@@ -33,46 +33,38 @@ const CategoryDropDownSelector = ({ recipeType }) => {
   };
 
   return (
-    <FormControl>
-    <InputLabel htmlFor="select">Area</InputLabel> 
-    <select 
-      
-        data-testid="explore-by-area-dropdown"
+    <FormControl className="formControl" margin="dense">
+      <InputLabel htmlFor="select">Area</InputLabel>
+      <select
         id="select"
-        type="select"
-
-        value={currentFilterName}
-        onChange={(e)=> setcurrentFilterName(e.target.value)}
+        data-testid="explore-by-area-dropdown"
+        value={ currentFilterName }
+        onChange={ (e) => setcurrentFilterName(e.target.value) }
       >
         <option
           key="All"
-          variant="outlined"
           value="All"
           onClick={ handleClick }
           data-testid="All-option"
-          size="small"
-          className={ recipeType === 'drink' ? 'drink-button' : '' }
         >
           All
         </option>
-        {apiCategories.value && apiCategories.value
+        {apiName.value && apiName.value
           .map(({ strArea }) => (
             <option
-              variant="contained"
               key={ strArea }
               value={ strArea }
               onClick={ handleClick }
               data-testid={ `${strArea}-option` }
-              size="small"
-              className={ recipeType === 'drink' ? 'drink-button' : '' }
             >
 
               {strArea}
 
             </option>
           ))}
+
       </select>
-     </FormControl> 
+    </FormControl>
 
   );
 };

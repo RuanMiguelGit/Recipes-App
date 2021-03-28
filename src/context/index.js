@@ -11,6 +11,7 @@ const ContextProvider = ({ children }) => {
   const [apiName, setApiName] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [filteredName, setFilteredName] = useState([]);
+  const [RandomFood, setRandomFood] = useState([]);
 
   const filterByCategory = (category) => {
     if (category) return (apiData.filter(({ strCategory }) => strCategory === category));
@@ -25,6 +26,7 @@ const ContextProvider = ({ children }) => {
   const obj = {
     hideSearchBar: { value: hideSearchBar, set: setHideSearchBar },
     apiData: { value: apiData, set: setApiData },
+    RandomFood: { value: RandomFood, set: setRandomFood },
     apiCategories: { value: apiCategories, set: setApiCategories },
     apiName: { value: apiName, set: setApiName },
     filteredRecipes: {
