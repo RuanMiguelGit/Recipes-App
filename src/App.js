@@ -16,8 +16,8 @@ import RecipesDone from './pages/RecipesDone';
 import RecipesFav from './pages/RecipesFav';
 import DetailsFood from './pages/DetailsFood';
 import DetailsDrink from './pages/DetailsDrink';
-import RecipeInProgressFoos from './pages/RecipeInProgressFoos';
-import RecipeInProgressDrinks from './pages/RecipeInProgressDrinks';
+import FoodInProgress from './pages/FoodInProgress';
+import DrinkInProgress from './pages/DrinkInProgress';
 
 function App() {
   return (
@@ -37,8 +37,8 @@ function App() {
         <Route exact path="/explorar/comidas" component={ ExplorerFods } />
         <Route path="/explorar/bebidas" component={ ExplorerDrinks } />
         <Route path="/explorar" component={ Explorer } />
-        <Route path="/comidas/:id/in-progress" component={ RecipeInProgressFoos } />
-        <Route path="/bebidas/:id/in-progress" component={ RecipeInProgressDrinks } />
+        <Route path="/comidas/:id/in-progress" component={ FoodInProgress } />
+        <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         <Route path="/comidas/:id" component={ DetailsFood } />
         <Route path="/bebidas/:id" component={ DetailsDrink } />
         <Route path="/comidas" component={ MainFoods } />
