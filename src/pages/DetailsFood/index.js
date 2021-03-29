@@ -143,7 +143,8 @@ const DetailsFood = () => {
                       data-testid="start-recipe-btn"
                       position="fixed"
                       color="primary"
-                      style={ { top: 'auto', bottom: 0 } }
+                      style={ { top: 'auto',
+                        bottom: 0 } }
                     >
                       <Button
                         variant="contained"

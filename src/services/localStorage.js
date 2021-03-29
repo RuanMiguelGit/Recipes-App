@@ -122,7 +122,7 @@ export const saveFavoriteRecipe = (recipe) => {
   const newFavorite = recipe.idMeal
     ? {
       id: recipe.idMeal,
-      type: 'comida',
+      type: 'meal',
       area: recipe.strArea,
       category: recipe.strCategory,
       alcoholicOrNot: '',
@@ -131,7 +131,7 @@ export const saveFavoriteRecipe = (recipe) => {
     }
     : {
       id: recipe.idDrink,
-      type: 'bebida',
+      type: 'drink',
       area: '',
       category: recipe.strCategory,
       alcoholicOrNot: recipe.strAlcoholic,

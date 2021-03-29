@@ -1,44 +1,36 @@
-import { Grid } from '@material-ui/core';
-import React from 'react';
-import ButtonLink from '../components/ButtonLink';
+import React, { useState, useContext, useEffect } from 'react';
+import Loading from '../components/animation/Loading';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
+import { Context } from '../context';
+import getApiData from '../services/apiRequest';
+import ExploreDrinksButton from '../components/ExploreDrinksButton';
 
-const ExplorerDrinks = () => (
-  <div>
-    <Header
-      name="Explorar Bebidas"
-      foodClass="explorer-drinks"
-      Show={ false }
-    />
+const ExplorerDrinks = () => {
+  const { apiData } = useContext(Context);
+  const [loading, setLoading] = useState('');
+  useEffect(() => {
+    getApiData('drink', 'random.php').then((data) => {
+      apiData.set(data);
+      setLoading(false);
+      console.log(apiData.value);
+    });
+  }, []);
+  return (
 
-    <Grid className="Button-explorer">
-      <ButtonLink
-        LinkT="/explorar/bebidas/ingredientes"
-        name="Explorar Por Ingredientes"
-        className="SizeUp"
-        size="large"
-        variant="contained"
-        color="primary"
-        type="button"
-        datatest="explore-by-ingredient"
+    <div>
+      <Header
+        name="Explorar Bebidas"
+        foodClass="explorer-drinks"
+        Show={ false }
       />
-
-      <ButtonLink
-        name="Me Surpreenda!"
-        className="SizeUp"
-        size="large"
-        variant="contained"
-        color="primary"
-        href="#contained-buttons"
-        type="button"
-        datatest="explore-surprise"
+      { loading ? <Loading />
+        : <ExploreDrinksButton />}
+      <Footer
+        foodClass="explorer-drinks-footer"
       />
-    </Grid>
-    <Footer
-      foodClass="explorer-drinks-footer"
-    />
-  </div>
-);
+    </div>
+  );
+};
 
 export default ExplorerDrinks;
