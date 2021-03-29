@@ -4,3 +4,10 @@
   justify-content: center;
   size: 1000px;
 }
+
+.notFoundpic {
+  display: flex;
+  height: 200px;
+  margin-left: 90px;
+  width: 200px;
+}

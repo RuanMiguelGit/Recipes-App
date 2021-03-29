@@ -1,12 +1,22 @@
-import { Grid } from '@material-ui/core';
-import React, { useContext } from 'react';
-import ButtonLink from '../components/ButtonLink';
+import React, { useContext, useState, useEffect } from 'react';
+import Loading from '../components/animation/Loading';
 import Footer from '../components/Footer';
 import Header from '../components/Header';
 import { Context } from '../context';
+import getApiData from '../services/apiRequest';
+import ExplorefoodsButton from './ExplorefoodsButton';
 
 const ExplorerFods = () => {
-  const { FetchRandomFood } = useContext(Context);
+  const { apiData } = useContext(Context);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    getApiData('food', 'random.php').then((data) => {
+      apiData.set(data);
+      setLoading(false);
+      console.log(apiData.value);
+    });
+  }, []);
 
   return (
 
@@ -16,42 +26,9 @@ const ExplorerFods = () => {
         foodClass="explorer-foods"
         Show={ false }
       />
-      <Grid className="Button-explorer">
-        <ButtonLink
-          LinkT="/explorar/comidas/ingredientes"
-          name="Explorar Por Ingredientes"
-          className="SizeUp"
-          size="large"
-          variant="contained"
-          color="secondary"
-          type="button"
-          datatest="explore-by-ingredient"
-        />
+      { loading ? <Loading />
+        : <ExplorefoodsButton />}
 
-        <ButtonLink
-          LinkT="/explorar/comidas/area"
-          name="Por Local de Origem"
-          className="SizeUp"
-          size="large"
-          variant="contained"
-          color="secondary"
-          href="#contained-buttons"
-          type="button"
-          datatest="explore-by-area"
-        />
-
-        <ButtonLink
-          name="Me Surpreenda!"
-          className="SizeUp"
-          size="large"
-          variant="contained"
-          color="secondary"
-          href="#contained-buttons"
-          type="button"
-          datatest="explore-surprise"
-          func={ () => FetchRandomFood() }
-        />
-      </Grid>
       <Footer
         foodClass="explorer-foods-footer"
       />

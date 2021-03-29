@@ -11,7 +11,7 @@ const ContextProvider = ({ children }) => {
   const [apiName, setApiName] = useState([]);
   const [filteredRecipes, setFilteredRecipes] = useState([]);
   const [filteredName, setFilteredName] = useState([]);
-  const [RandomFood, setRandomFood] = useState([]);
+  const [RandomFood, setRandomFood] = useState('');
 
   const filterByCategory = (category) => {
     if (category) return (apiData.filter(({ strCategory }) => strCategory === category));

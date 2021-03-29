@@ -12,11 +12,14 @@ import getApiData from '../services/apiRequest';
 const MainFoods = () => {
   const { apiData, hideSearchBar, filteredRecipes } = useContext(Context);
   const [loading, setLoading] = useState(true);
+  const [ídName, setidName] = useState('');
   useEffect(() => {
     hideSearchBar.set(true);
     getApiData('food', 'search.php?s=').then((data) => {
       apiData.set(data);
       setLoading(false);
+      setidName(apiData.value.idMeal);
+      console.log(ídName);
     });
   }, []);
 
