@@ -3,6 +3,7 @@ import { Switch, Route } from 'react-router-dom';
 import ConxtextProvider from './context';
 import './App.css';
 import Login from './pages/Login';
+import NotFound from './pages/NotFound';
 import MainFoods from './pages/MainFoods';
 import MainDrinks from './pages/MainDrinks';
 import Explorer from './pages/Explorer';
@@ -30,6 +31,7 @@ function App() {
         </Route>
         <Route path="/comidas/ingredientes/:filter" component={ MainFoods } />
         <Route path="/bebidas/ingredientes/:filter" component={ MainDrinks } />
+        <Route path="/explorar/bebidas/area" component={ NotFound } />
         <Route exact path="/explorar/comidas/area" component={ Origin } />
         <Route exact path="/explorar/comidas" component={ ExplorerFods } />
         <Route path="/explorar/bebidas" component={ ExplorerDrinks } />

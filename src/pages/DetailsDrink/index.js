@@ -52,8 +52,10 @@ const DetailsDrink = () => {
     ));
   }, []);
   useEffect(() => {
-    if (checkDoneRecipes('drink', id)) setBottomButtonText('');
-    else if (checkProgressRecipes('drink', id)) setBottomButtonText('Continuar Receita');
+    if (checkDoneRecipes('bebida', id)) setBottomButtonText('');
+    else if (checkProgressRecipes('cocktail', id)) {
+      setBottomButtonText('Continuar Receita');
+    }
   }, []);
 
   const ingredientsList = () => {

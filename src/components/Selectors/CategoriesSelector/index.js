@@ -11,10 +11,8 @@ const CategoriesSelector = ({ recipeType }) => {
   const { apiCategories, filteredRecipes, apiData } = useContext(Context);
   const [currentFilter, setCurrentFilter] = useState('');
   useEffect(() => {
-    getApiData(recipeType, EpCategories).then((data) => {
-      apiCategories.set(data);
-      return () => { apiCategories.set([]); };
-    });
+    getApiData(recipeType, EpCategories).then((data) => { apiCategories.set(data); });
+    return () => { apiCategories.set([]); };
   }, []);
 
   const handleClick = (e) => {
@@ -67,6 +65,7 @@ const CategoriesSelector = ({ recipeType }) => {
             </Button>
           </Grid>
         ))}
+
     </Grid>
 
   );

@@ -22,6 +22,14 @@
   background-color: rgb(244, 61, 61);
 }
 
+.search-bar .origin-search {
+  background-color: maroon;
+}
+
+.search-bar .origin-search:hover, .search-bar .food-search:focus {
+  background-color: maroon;
+}
+
 .search-bar .drink-search {
   background-color: rgb(12, 88, 150);
 }

@@ -32,11 +32,11 @@ export const checkProgressRecipes = (type, id) => {
   let result = '';
   if (inProgressRecipes) {
     switch (type) {
-    case 'food':
+    case 'meal':
       result = Object.keys(inProgressRecipes.meals)
         .find((key) => key.toString() === id);
       break;
-    case 'drink':
+    case 'cocktail':
       result = Object.keys(inProgressRecipes.cocktails)
         .find((key) => key.toString() === id);
       break;
