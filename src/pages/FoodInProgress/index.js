@@ -16,6 +16,7 @@ import {
   Share as ShareIcon,
 } from '@material-ui/icons';
 import FavoriteButton from '../../components/FavoriteButton';
+import Loading from '../../components/animation/Loading';
 import {
   updateInProgressRecipe,
   getInProcessRecipe,
@@ -148,7 +149,7 @@ const FoodInProgress = () => {
                 </Button>
               </CardContent>
             </Card>)
-          : <p>Loading</p> }
+          : <Loading /> }
       </Grid>
     </Grid>
   );

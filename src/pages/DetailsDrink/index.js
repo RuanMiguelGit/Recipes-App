@@ -17,6 +17,7 @@ import {
 } from '@material-ui/icons';
 import RecomendationsCarousel from '../../components/RecomendationsCarousel';
 import FavoriteButton from '../../components/FavoriteButton';
+import Loading from '../../components/animation/Loading';
 import {
   checkDoneRecipes,
   checkProgressRecipes,
@@ -141,7 +142,7 @@ const DetailsDrink = () => {
                   : null}
               </CardContent>
             </Card>)
-          : <p>Loading</p> }
+          : <Loading /> }
       </Grid>
     </Grid>
   );

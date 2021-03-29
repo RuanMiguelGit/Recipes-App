@@ -18,6 +18,7 @@ import {
 } from '@material-ui/icons';
 import RecomendationsCarousel from '../../components/RecomendationsCarousel';
 import FavoriteButton from '../../components/FavoriteButton';
+import Loading from '../../components/animation/Loading';
 import {
   checkDoneRecipes,
   checkProgressRecipes,
@@ -54,8 +55,8 @@ const DetailsFood = () => {
     ));
   }, []);
   useEffect(() => {
-    if (checkDoneRecipes('food', id)) setBottomButtonText('');
-    else if (checkProgressRecipes('food', id)) setBottomButtonText('Continuar Receita');
+    if (checkDoneRecipes('meal', id)) setBottomButtonText('');
+    else if (checkProgressRecipes('meal', id)) setBottomButtonText('Continuar Receita');
   }, []);
 
   const ingredientsList = () => {
@@ -153,7 +154,7 @@ const DetailsFood = () => {
                   : null}
               </CardContent>
             </Card>)
-          : <p>Loading</p> }
+          : <Loading /> }
       </Grid>
     </Grid>
   );
