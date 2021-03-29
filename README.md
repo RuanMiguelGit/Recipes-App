@@ -1277,7 +1277,7 @@ Os ícones dos botões podem ser encontrados em `src/images/whiteHeartIcon.svg` 
 ### 46 - Salve as receitas favoritas no `localStorage` na chave `favoriteRecipes`
 
   * O formato deve ser `[{ id, type, area, category, alcoholicOrNot, name, image }]`.
-  * As receitas feitas devem ser salvas em `localStorage` na chave `doneRecipes` no formato `[{ id, type, area, category, alcoholicOrNot, name, image, doneDate, tags }]`.
+  * As receitas feitas devem ser salvas em `localStorage` na chave `favoriteRecipes` no formato `[{ id, type, area, category, alcoholicOrNot, name, image, doneDate, tags }]`.
 
   O que será verificado:
   ```
@@ -1362,7 +1362,7 @@ O progresso das receitas devem ser salvos em `localStorage` na chave` inProgress
 
 ### 52 - Implemente a solução de maneira que o botão de finalizar receita só pode estar habilitado quando todos os ingredientes estiverem _"checkados"_ (marcados)
 
-  O botão deve ficar desabilitado em quanto todos os checkboxs não forem marcados.
+  O botão deve ficar desabilitado em quanto todos os checkboxs não forem marcados. O botão deve ficar fixo na parte de baixo da tela o tempo todo, semelhante ao botão de "Iniciar Receita"
 
   O que será verificado:
   ```
