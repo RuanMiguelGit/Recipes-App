@@ -32,11 +32,11 @@ export const checkProgressRecipes = (type, id) => {
   let result = '';
   if (inProgressRecipes) {
     switch (type) {
-    case 'food':
+    case 'meal':
       result = Object.keys(inProgressRecipes.meals)
         .find((key) => key.toString() === id);
       break;
-    case 'drink':
+    case 'cocktail':
       result = Object.keys(inProgressRecipes.cocktails)
         .find((key) => key.toString() === id);
       break;
@@ -122,7 +122,7 @@ export const saveFavoriteRecipe = (recipe) => {
   const newFavorite = recipe.idMeal
     ? {
       id: recipe.idMeal,
-      type: 'meal',
+      type: 'comida',
       area: recipe.strArea,
       category: recipe.strCategory,
       alcoholicOrNot: '',
@@ -131,7 +131,7 @@ export const saveFavoriteRecipe = (recipe) => {
     }
     : {
       id: recipe.idDrink,
-      type: 'drink',
+      type: 'bebida',
       area: '',
       category: recipe.strCategory,
       alcoholicOrNot: recipe.strAlcoholic,

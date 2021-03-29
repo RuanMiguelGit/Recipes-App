@@ -93,6 +93,7 @@ const FoodInProgress = () => {
                   src={ recipeDetails.strDrinkThumb }
                   alt={ recipeDetails.idDrink }
                   data-testid="recipe-photo"
+                  className="recipe-photo"
                 />
                 <Typography data-testid="recipe-title">
                   {recipeDetails.strDrink}

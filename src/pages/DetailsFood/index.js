@@ -55,7 +55,7 @@ const DetailsFood = () => {
     ));
   }, []);
   useEffect(() => {
-    if (checkDoneRecipes('meal', id)) setBottomButtonText('');
+    if (checkDoneRecipes('comida', id)) setBottomButtonText('');
     else if (checkProgressRecipes('meal', id)) setBottomButtonText('Continuar Receita');
   }, []);
 
