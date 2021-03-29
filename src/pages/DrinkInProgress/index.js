@@ -5,39 +5,34 @@ import {
   Grid,
   Card,
   CardContent,
-  CardMedia,
   Typography,
   List,
+  Checkbox,
   ListItem,
   ListItemText,
-  AppBar,
   Button,
 } from '@material-ui/core';
 import {
   Share as ShareIcon,
 } from '@material-ui/icons';
-import RecomendationsCarousel from '../../components/RecomendationsCarousel';
 import FavoriteButton from '../../components/FavoriteButton';
 import Loading from '../../components/animation/Loading';
 import {
-  checkDoneRecipes,
-  checkProgressRecipes,
+  updateInProgressRecipe,
+  getInProcessRecipe,
+  saveDoneRecipe,
 } from '../../services/localStorage';
 
-import './styles.css';
-
-const DetailsFood = () => {
-  const NUMBER_OF_RECOMENDATIONS = 6;
+const FoodInProgress = () => {
   const { id } = useParams();
   const history = useHistory();
 
   const [recipeDetails, setRecipeDetails] = useState('');
-  const [recomendations, setRecomendations] = useState([]);
-  const [bottomButtonText, setBottomButtonText] = useState('Iniciar receita');
   const [copiedLink, setCopiedLink] = useState(false);
+  const [usedIngredients, setUsedIngredients] = useState([]);
+  const [finishButton, setFinishButton] = useState(true);
 
-  const recipeDetailsURL = `https://www.themealdb.com/api/json/v1/1/lookup.php?i=${id}`;
-  const drinksURL = 'https://www.thecocktaildb.com/api/json/v1/1/search.php?s=';
+  const recipeDetailsURL = `https://www.thecocktaildb.com/api/json/v1/1/lookup.php?i=${id}`;
 
   const fetchData = async (url, callback) => {
     const results = await fetch(url)
@@ -45,19 +40,6 @@ const DetailsFood = () => {
       .then((data) => data);
     callback(results);
   };
-
-  useEffect(() => {
-    fetchData(recipeDetailsURL, (results) => setRecipeDetails(results.meals[0]));
-  }, []);
-  useEffect(() => {
-    fetchData(drinksURL, (results) => setRecomendations(
-      results.drinks.slice(0, NUMBER_OF_RECOMENDATIONS),
-    ));
-  }, []);
-  useEffect(() => {
-    if (checkDoneRecipes('meal', id)) setBottomButtonText('');
-    else if (checkProgressRecipes('meal', id)) setBottomButtonText('Continuar Receita');
-  }, []);
 
   const ingredientsList = () => {
     const MAX_NUMBER_OF_INGREDIENTS = 20;
@@ -74,11 +56,26 @@ const DetailsFood = () => {
     return filtered;
   };
 
-  const embedVideoLink = (link) => {
-    const videoId = link.split('v=')[1];
-    const embedSrc = `https://www.youtube.com/embed/${videoId}`;
-    return embedSrc;
+  const handleCheckboxIngredients = (ingredient) => {
+    updateInProgressRecipe('cocktails', id, ingredient);
+    if (usedIngredients.includes(ingredient)) {
+      setUsedIngredients(usedIngredients.filter((item) => item !== ingredient));
+    } else {
+      setUsedIngredients([...usedIngredients, ingredient]);
+    }
   };
+
+  useEffect(() => {
+    fetchData(recipeDetailsURL, (results) => setRecipeDetails(results.drinks[0]));
+  }, []);
+  useEffect(() => {
+    setUsedIngredients(getInProcessRecipe('cocktails', id));
+  }, []);
+  useEffect(() => {
+    if (getInProcessRecipe('cocktails', id).length === ingredientsList().length) {
+      setFinishButton(false);
+    } else setFinishButton(true);
+  }, [recipeDetails, usedIngredients]);
 
   return (
     <Grid
@@ -88,27 +85,28 @@ const DetailsFood = () => {
       alignItems="center"
     >
       <Grid item xs={ 12 }>
-        {(recipeDetails && recomendations)
+        {recipeDetails
           ? (
             <Card>
               <CardContent>
                 <img
-                  src={ recipeDetails.strMealThumb }
-                  alt={ recipeDetails.idMeal }
+                  src={ recipeDetails.strDrinkThumb }
+                  alt={ recipeDetails.idDrink }
                   data-testid="recipe-photo"
-                  className="recipe-photo"
                 />
                 <Typography data-testid="recipe-title">
-                  {recipeDetails.strMeal}
+                  {recipeDetails.strDrink}
                 </Typography>
                 <Typography data-testid="recipe-category">
                   {recipeDetails.strCategory}
                 </Typography>
-                <FavoriteButton id={ id } recipe={ recipeDetails } type="comida" />
+                <FavoriteButton id={ id } recipe={ recipeDetails } type="bebida" />
                 <Button
                   data-testid="share-btn"
                   onClick={ () => {
-                    navigator.clipboard.writeText(window.location.href);
+                    navigator.clipboard.writeText(
+                      window.location.href.replace(/\/in-progress/, ''),
+                    );
                     setCopiedLink(true);
                   } }
                 >
@@ -117,11 +115,20 @@ const DetailsFood = () => {
                 </Button>
                 <List>
                   { ingredientsList().map((ingredientAndMeasure, index) => (
-                    <ListItem key={ index }>
+                    <ListItem key={ index } data-testid={ `${index}-ingredient-step` }>
+                      <Checkbox
+                        checked={
+                          usedIngredients.includes(ingredientAndMeasure.ingredient)
+                        }
+                        color="default"
+                        onChange={
+                          () => handleCheckboxIngredients(ingredientAndMeasure.ingredient)
+                        }
+                        inputProps={ { 'aria-label': 'checkbox with default color' } }
+                      />
                       <ListItemText
                         primary={ ingredientAndMeasure.ingredient }
                         secondary={ ingredientAndMeasure.measure }
-                        data-testid={ `${index}-ingredient-name-and-measure` }
                       />
                     </ListItem>
                   ))}
@@ -129,30 +136,18 @@ const DetailsFood = () => {
                 <Typography data-testid="instructions">
                   {recipeDetails.strInstructions}
                 </Typography>
-                <CardMedia
-                  component="iframe"
-                  src={ embedVideoLink(recipeDetails.strYoutube) }
-                  data-testid="video"
-                />
-                { recomendations
-                  ? <RecomendationsCarousel recomendations={ recomendations } />
-                  : <p>Loading</p> }
-                {bottomButtonText
-                  ? (
-                    <AppBar
-                      data-testid="start-recipe-btn"
-                      position="fixed"
-                      color="primary"
-                      style={ { top: 'auto', bottom: 0 } }
-                    >
-                      <Button
-                        variant="contained"
-                        onClick={ () => history.push(`/comidas/${id}/in-progress`) }
-                      >
-                        {bottomButtonText}
-                      </Button>
-                    </AppBar>)
-                  : null}
+                <Button
+                  disabled={ finishButton }
+                  variant="contained"
+                  data-testid="finish-recipe-btn"
+                  onClick={ () => {
+                    history.push('/receitas-feitas');
+                    saveDoneRecipe(recipeDetails);
+                  } }
+
+                >
+                  Finalizar receita
+                </Button>
               </CardContent>
             </Card>)
           : <Loading /> }
@@ -161,4 +156,4 @@ const DetailsFood = () => {
   );
 };
 
-export default DetailsFood;
+export default FoodInProgress;
