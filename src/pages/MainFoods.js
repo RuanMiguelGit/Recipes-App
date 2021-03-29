@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
+import { useParams } from 'react-router';
 import Loading from '../components/animation/Loading';
 import RecipeCardsContainer from '../components/Cards/RecipeCardsContainer';
 import Footer from '../components/Footer';
@@ -7,14 +8,21 @@ import Header from '../components/Header';
 import Searchbar from '../components/Searchbar';
 import CategoriesSelector from '../components/Selectors/CategoriesSelector';
 import { Context } from '../context';
-import getApiData from '../services/apiRequest';
+import getApiData, { EpAllRecipes, EpRecipesByIngredients } from '../services/apiRequest';
 
 const MainFoods = () => {
   const { apiData, hideSearchBar, filteredRecipes } = useContext(Context);
   const [loading, setLoading] = useState(true);
+  const { filter } = useParams();
+
   useEffect(() => {
     hideSearchBar.set(true);
-    getApiData('food', 'search.php?s=').then((data) => {
+
+    const request = filter
+      ? ['food', EpRecipesByIngredients, filter]
+      : ['food', EpAllRecipes];
+
+    getApiData(...request).then((data) => {
       apiData.set(data);
       setLoading(false);
     });

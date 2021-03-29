@@ -8,8 +8,7 @@ import MainDrinks from './pages/MainDrinks';
 import Explorer from './pages/Explorer';
 import ExplorerFods from './pages/ExplorerFods';
 import ExplorerDrinks from './pages/ExplorerDrinks';
-import ExploreFoodsByingredients from './pages/ExploreFoodsByingredients';
-import ExploreDriksByIngredients from './pages/ExploreDriksByIngredients';
+import ExploreByIngredients from './pages/ExploreByIngredients';
 import Origin from './pages/Origin';
 import Profile from './pages/Profile';
 import RecipesDone from './pages/RecipesDone';
@@ -23,16 +22,14 @@ function App() {
   return (
     <ConxtextProvider>
       <Switch>
-        <Route
-          exact
-          path="/explorar/comidas/ingredientes"
-          component={ ExploreFoodsByingredients }
-        />
-        <Route
-          exact
-          path="/explorar/bebidas/ingredientes"
-          component={ ExploreDriksByIngredients }
-        />
+        <Route exact path="/explorar/comidas/ingredientes">
+          <ExploreByIngredients drinksOrFoods="foods" />
+        </Route>
+        <Route exact path="/explorar/bebidas/ingredientes">
+          <ExploreByIngredients drinksOrFoods="drinks" />
+        </Route>
+        <Route path="/comidas/ingredientes/:filter" component={ MainFoods } />
+        <Route path="/bebidas/ingredientes/:filter" component={ MainDrinks } />
         <Route exact path="/explorar/comidas/area" component={ Origin } />
         <Route exact path="/explorar/comidas" component={ ExplorerFods } />
         <Route path="/explorar/bebidas" component={ ExplorerDrinks } />
@@ -41,8 +38,8 @@ function App() {
         <Route path="/bebidas/:id/in-progress" component={ DrinkInProgress } />
         <Route path="/comidas/:id" component={ DetailsFood } />
         <Route path="/bebidas/:id" component={ DetailsDrink } />
-        <Route path="/comidas" component={ MainFoods } />
-        <Route path="/bebidas" component={ MainDrinks } />
+        <Route path="/comidas/" component={ MainFoods } />
+        <Route path="/bebidas/" component={ MainDrinks } />
         <Route path="/receitas-feitas" component={ RecipesDone } />
         <Route path="/receitas-favoritas" component={ RecipesFav } />
         <Route path="/perfil" component={ Profile } />

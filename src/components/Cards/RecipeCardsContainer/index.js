@@ -43,6 +43,7 @@ const RecipeCardsContainer = ({ cardsInfos, cardType, maxCards }) => {
           thumbnail={ card[image] }
           index={ index }
           clickRedirectPath={ `${redirectPath}/${card[idName]}` }
+          cardType="recipe"
         />
       ))}
     </Grid>

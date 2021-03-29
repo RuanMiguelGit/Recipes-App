@@ -2,6 +2,8 @@ export const EpCategories = 'list.php?c=list';
 export const EpAllRecipes = 'search.php?s=';
 export const EpRecipesByFirstLetter = 'search.php?f=';
 export const EpRecipesByCategory = 'filter.php?c=';
+export const EpIngredients = 'list.php?i=list';
+export const EpRecipesByIngredients = 'filter.php?i=';
 
 const getApiData = async (type, endPoint, value = '') => {
   const requestPattern = {
