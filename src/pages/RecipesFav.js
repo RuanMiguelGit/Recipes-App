@@ -23,7 +23,7 @@ const RecipesFav = () => {
         foodClass="Recipes-Fav"
         Show={ false }
       />
-      <Filter updateState={ setFilter } />
+      <Filter updateState={ setFilter } type="fav" />
       <RecipesContainer
         type="favorite"
         recipes={ favoriteRecipes }

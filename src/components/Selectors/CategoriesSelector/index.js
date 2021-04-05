@@ -6,12 +6,18 @@ import { Context } from '../../../context';
 import getApiData,
 { EpAllRecipes, EpCategories, EpRecipesByCategory } from '../../../services/apiRequest';
 import './styles.css';
+import ActiveButtons from '../../../lib/ActiveButtons';
 
 const CategoriesSelector = ({ recipeType }) => {
   const { apiCategories, filteredRecipes, apiData } = useContext(Context);
   const [currentFilter, setCurrentFilter] = useState('');
+  const handleActiveButtons = new ActiveButtons('.selector-grid', recipeType);
+
   useEffect(() => {
     getApiData(recipeType, EpCategories).then((data) => { apiCategories.set(data); });
+
+    handleActiveButtons.init();
+
     return () => { apiCategories.set([]); };
   }, []);
 
@@ -27,6 +33,7 @@ const CategoriesSelector = ({ recipeType }) => {
       getApiData(recipeType, EpRecipesByCategory, e.target.textContent)
         .then((data) => apiData.set(data));
     }
+    handleActiveButtons.onClick(e);
   };
 
   const CATEGORIES_AMOUNT = 5;
