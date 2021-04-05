@@ -33,7 +33,7 @@ const CategoriesSelector = ({ recipeType }) => {
 
   return (
     <Grid container spacing={ 1 } className="selector-grid">
-      <Grid item xs={ 4 }>
+      <Grid item xs={ 4 } sm={ 2 }>
         <Button
           variant="contained"
           fullWidth
@@ -48,7 +48,7 @@ const CategoriesSelector = ({ recipeType }) => {
       </Grid>
       {apiCategories.value && apiCategories.value.slice(0, CATEGORIES_AMOUNT)
         .map(({ strCategory }) => (
-          <Grid item key={ strCategory } xs={ 4 }>
+          <Grid item key={ strCategory } xs={ 4 } sm={ 2 }>
             <Button
               variant="contained"
               fullWidth
