@@ -16,10 +16,7 @@ const ExploreByIngredients = ({ drinksOrFoods }) => {
   const { apiData } = useContext(Context);
   useEffect(() => {
     getApiData(cardType, EpIngredients).then((data) => {
-      console.log('exploreByFoods');
       apiData.set(data);
-      console.log(data);
-      // const ingredients = console.log(data.map(({ strIngredient1 }) => strIngredient1));
       setLoading(false);
     });
   }, []);
@@ -49,7 +46,7 @@ const ExploreByIngredients = ({ drinksOrFoods }) => {
 };
 
 ExploreByIngredients.propTypes = {
-  drinksOrFoods: PropTypes.arrayOf(PropTypes.string).isRequired,
+  drinksOrFoods: PropTypes.string.isRequired,
 };
 
 export default ExploreByIngredients;

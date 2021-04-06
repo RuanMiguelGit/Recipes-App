@@ -14,3 +14,13 @@
 .drink-button {
   height: 50px;
 }
+
+.MuiButtonBase-root.MuiButton-root.active-button-food {
+  background-color: rgb(224, 41, 41);
+  color: white;
+}
+
+.MuiButtonBase-root.MuiButton-root.active-button-drink {
+  background-color: rgb(12, 88, 150);
+  color: white;
+}

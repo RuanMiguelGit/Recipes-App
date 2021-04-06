@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState, useContext, useEffect } from 'react';
 import Loading from '../components/animation/Loading';
 import Footer from '../components/Footer';
@@ -13,7 +14,6 @@ const ExplorerDrinks = () => {
     getApiData('drink', 'random.php').then((data) => {
       apiData.set(data);
       setLoading(false);
-      console.log(apiData.value);
     });
   }, []);
   return (

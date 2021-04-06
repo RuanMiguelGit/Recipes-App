@@ -10,7 +10,7 @@ const RecipeCard = ({ title, thumbnail, index, clickRedirectPath, cardType }) =>
   const history = useHistory();
 
   return (
-    <Grid item xs={ 6 }>
+    <Grid item xs={ 6 } sm={ 4 } md={ 3 } lg={ 2 }>
       <Card
         data-testid={ `${index}-${cardType}-card` }
         className="recipe-card"

@@ -6,12 +6,18 @@ import { Context } from '../../../context';
 import getApiData,
 { EpAllRecipes, EpCategories, EpRecipesByCategory } from '../../../services/apiRequest';
 import './styles.css';
+import ActiveButtons from '../../../lib/ActiveButtons';
 
 const CategoriesSelector = ({ recipeType }) => {
   const { apiCategories, filteredRecipes, apiData } = useContext(Context);
   const [currentFilter, setCurrentFilter] = useState('');
+  const handleActiveButtons = new ActiveButtons('.selector-grid', recipeType);
+
   useEffect(() => {
     getApiData(recipeType, EpCategories).then((data) => { apiCategories.set(data); });
+
+    handleActiveButtons.init();
+
     return () => { apiCategories.set([]); };
   }, []);
 
@@ -27,13 +33,14 @@ const CategoriesSelector = ({ recipeType }) => {
       getApiData(recipeType, EpRecipesByCategory, e.target.textContent)
         .then((data) => apiData.set(data));
     }
+    handleActiveButtons.onClick(e);
   };
 
   const CATEGORIES_AMOUNT = 5;
 
   return (
     <Grid container spacing={ 1 } className="selector-grid">
-      <Grid item xs={ 4 }>
+      <Grid item xs={ 4 } sm={ 2 }>
         <Button
           variant="contained"
           fullWidth
@@ -48,7 +55,7 @@ const CategoriesSelector = ({ recipeType }) => {
       </Grid>
       {apiCategories.value && apiCategories.value.slice(0, CATEGORIES_AMOUNT)
         .map(({ strCategory }) => (
-          <Grid item key={ strCategory } xs={ 4 }>
+          <Grid item key={ strCategory } xs={ 4 } sm={ 2 }>
             <Button
               variant="contained"
               fullWidth

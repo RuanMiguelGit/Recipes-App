@@ -14,7 +14,7 @@ const RecipesDone = () => {
         foodClass="Recipes-Done"
         Show={ false }
       />
-      <Filter updateState={ setFilter } />
+      <Filter updateState={ setFilter } type="done" />
       <RecipesContainer type="done" recipes={ doneRecipes } filter={ filter } />
     </Grid>
   );

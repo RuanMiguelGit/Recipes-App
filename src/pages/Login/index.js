@@ -3,6 +3,7 @@ import Card from '@material-ui/core/Card';
 import Grid from '@material-ui/core/Grid';
 import Button from '@material-ui/core/Button';
 import { Redirect } from 'react-router';
+import InputPassword from '../../components/InputPassword';
 import InputText from '../../components/InputText';
 import './styles.css';
 import {
@@ -61,12 +62,13 @@ const Login = () => {
               type="email"
               value={ email }
               updateState={ setEmail }
+              fullWidth
             />
-            <InputText
+            <InputPassword
               label="Password"
               name="password-input"
-              type="password"
               value={ password }
+              fullWidth
               updateState={ setPassword }
             />
             <Button
