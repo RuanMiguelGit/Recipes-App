@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useContext, useEffect, useState } from 'react';
 import { Context } from '../context';
 import Footer from '../components/Footer';
@@ -15,7 +16,6 @@ const Origin = () => {
     hideSearchBar.set(true);
     getApiData('food', 'search.php?s=').then((data) => {
       apiData.set(data);
-      console.log(filteredName);
       setLoading(false);
     });
   }, []);
