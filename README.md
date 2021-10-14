@@ -48,18 +48,15 @@
 
 # Membros do Projeto
 <ul>
-  <li>douglasCajueiro => https://github.com/douglasCajueiro </li>
+  <li>DouglasCajueiro => https://github.com/douglasCajueiro </li>
   <li>Gabriel Donnantuouni => https://github.com/gabrielDonnantuoni</li>
   <li>André Sampaio => https://github.com/almsampaio</li>
   <li>Ruan Miguel => https://github.com/ruanmiguelgit</li>
 </ul>
 
 
-# Organização da aplicação do Front-End
   
-  <img src="https://i.ibb.co/HpQHxmv/front-estrutura.png" alt="VS Code" >
 
----
 
 
 
