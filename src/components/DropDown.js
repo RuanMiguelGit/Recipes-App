@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { FormControl, InputLabel } from '@material-ui/core';
+import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
 import React, { useContext, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Context } from '../context';
@@ -32,23 +32,23 @@ const CategoryDropDownSelector = ({ recipeType }) => {
   return (
     <FormControl className="formControl" margin="dense">
       <InputLabel htmlFor="select">Area</InputLabel>
-      <select
+      <Select
         id="select"
         data-testid="explore-by-area-dropdown"
         value={ currentFilterName }
         onChange={ (e) => setcurrentFilterName(e.target.value) }
       >
-        <option
+        <MenuItem
           key="All"
           value="All"
           onClick={ handleClick }
           data-testid="All-option"
         >
           All
-        </option>
+        </MenuItem>
         {apiName.value && apiName.value
           .map(({ strArea }) => (
-            <option
+            <MenuItem
               key={ strArea }
               value={ strArea }
               onClick={ handleClick }
@@ -57,10 +57,10 @@ const CategoryDropDownSelector = ({ recipeType }) => {
 
               {strArea}
 
-            </option>
+            </MenuItem>
           ))}
 
-      </select>
+      </Select>
     </FormControl>
 
   );
