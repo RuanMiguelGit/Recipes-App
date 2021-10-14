@@ -1,6 +1,6 @@
 
 
-# Boas vindas ao repositório do projeto de Delivery-App-Sequelize-Node
+# Boas vindas ao repositório do projeto de App de Receitas
 <img src="https://media.giphy.com/media/gz46iALNZ8yQiTrAll/giphy.gif" />  <img src="https://media.giphy.com/media/3Fsog8CErdqykdrZ82/giphy.gif" />  
 <img src="https://media.giphy.com/media/UrHsAY5uFUG1IwKdIh/giphy.gif" />  <img src="https://media.giphy.com/media/BBvaRQLQUnbX5kX0JL/giphy.gif" />  
 <img src="https://media.giphy.com/media/8xPZR5l3DhhMMRQ0Br/giphy.gif" />  <img src="https://media.giphy.com/media/iuSa9855GP3TWJpdlQ/giphy.gif" />  
