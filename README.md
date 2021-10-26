@@ -12,7 +12,7 @@
 # Como Funciona
 <li> È possível fazer o login e os seus dados ficaram salvos no localStorage </li>
 <li> È possível explorar bebidas e comidas</li>
-<li> É possível explorar as comidas e bebidas por local de origim ou igrediente</li>
+<li> É possível explorar as comidas e bebidas por local de origem ou ingredientes</li>
 <li> È possível fazer pesquisas, dando um clique no botão de pesquisas</li>
 <li> È possível pesquisar por ingredientes, nome ou local</li> 
 <li> É possível ver a receitas das comidas e bebidas </li>
