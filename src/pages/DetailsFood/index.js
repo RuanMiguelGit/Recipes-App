@@ -44,6 +44,7 @@ const DetailsFood = () => {
       .then((response) => response.json())
       .then((data) => data);
     callback(results);
+    console.log('resul')
   };
 
   useEffect(() => {
